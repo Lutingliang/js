@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      let arr = ['c', 'a', 'z', 'a', 'x', 'a', 'a', 'z', 'c', 'x', 'a', 'x']
+      // 方法1  双重for循环
+      //   let newArr = [];
+      //   for (let i = 0; i < arr.length; i++) {
+      //     let flag = true;
+      //     for (let j = 0; j < newArr.length; j++) {
+      //       //   判断两个元素相同  arr[i] newArr[j]
+      //       if (arr[i] == newArr[j]) {
+      //         flag = false;
+      //         break;
+      //       }
+      //     }
+      //     if (flag) {
+      //       newArr.push(arr[i]);
+      //     }
+      //   }
+      //   console.log(newArr);
+      // 方法2 判断arr中的元素是否在newArr中出现过   newArr.indexOf() == -1
+      //   let newArr = [];
+      //   for (let i = 0; i < arr.length; i++) {
+      //     if (newArr.indexOf(arr[i]) == -1) {
+      //       newArr.push(arr[i]);
+      //     }
+      //   }
+      //   console.log(newArr);
+
+      // let newArr = []
+      // for (let i = 0; i <= arr.length - 1; i++) {
+      //   let flag = true
+      //   for (let j = 0; j < newArr.length; j++) {
+      //     if (arr[i] == newArr[j]) {
+      //       flag = false
+      //       break
+      //     }
+      //   }
+      //   if (flag) {
+      //     newArr.push(arr[i])
+      //   }
+      // }
+      // console.log(newArr.sort())
+
+      //   查询元素出现的次数
+      // let obj = {};
+      // for (let i = 0; i < arr.length; i++) {
+      //   if (arr[i] in obj) {
+      //     obj[arr[i]]++;
+      //   } else {
+      //     obj[arr[i]] = 1;
+      //   }
+      // }
+      // console.log(obj);
+
+      // let obj = {}
+      // for (let i = 0; i < arr.length; i++) {
+      //   if (arr[i] in obj) {
+      //     obj[arr[i]]++
+      //   } else {
+      //     obj[arr[i]] = 1
+      //   }
+      // }
+      // console.log(obj)
+    </script>
+  </body>
+</html>

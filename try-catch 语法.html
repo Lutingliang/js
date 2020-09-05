@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // try - catch
+      // 语法
+      // try ==> 尝试
+      // catch ==> 捕获
+      // try 里面的代码始终要执行 如果try中的代码有错误 就会被 catch捕获到 执行 catch语句代码
+      try {
+        let div = document.querySelector("#box");
+        div.onclick = function () {
+          console.log(1);
+        };
+      } catch (e) {
+        //   e 错误对象
+        console.log("请在页面中放一个id为box的元素");
+      }
+      console.log(2);
+      // 使用try-catch 语句可以避免我们的代码报错 影响后续代码的执行
+    </script>
+  </body>
+</html>

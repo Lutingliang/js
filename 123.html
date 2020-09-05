@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      //   //   var num = 10;
+      //   //   fn1();
+      //   //   function fn1() {
+      //   //     console.log(num);
+      //   //     var num = 20;
+      //   //   }
+
+      //   fn1();
+      //   var a = 4;
+      //   console.log(a);
+      //   a = 6;
+      //   console.log(a);
+      //   function a() {
+      //     console.log("哈");
+      //   }
+
+      //   a();
+
+      //   let obj = {};
+      //   obj.sex = "nan";
+      //   console.log(obj);
+
+      //  工厂函数
+      // function createObj(name, hobby) {
+      //   let obj = {};
+      //   obj.name = name;
+      //   obj.hobby = hobby;
+      //   obj.play = function () {
+      //     console.log(this.name + "正在打" + this.hobby);
+      //   };
+      //   return obj;
+      // }
+      // let obj1 = createObj("zs", "ls");
+      // console.log(obj1);
+      // obj1.play();
+
+      // 自定义构造函数
+      // function Person(name, age) {
+      //   this.name = name;
+      //   this.age = age;
+      //   console.log(this);
+      // }
+      // let obj1 = new Person("zs", 11);
+      // console.log(obj1);
+      // function Hero(name) {
+      //   this.name = name;
+      //   this.study = function (n) {
+      //     console.log(this.name + "学" + n);
+      //   };
+      // }
+      // let obj1 = new Hero("zs");
+      // console.log(obj1);
+      // obj1.study("js");
+      // let obj = {
+      //   name: "zs",
+      //   age: 15,
+      // };
+      // for (let k in obj) {
+      //   console.log(k, obj[k]);
+      // }
+      // function fn(a, b) {
+      //   a = a + 1;
+      //   b = b + 1;
+      //   console.log(a);
+      //   console.log(b);
+      // }
+
+      // var x = 10;
+      // var y = 20;
+      // fn(x, y);
+      // console.log(x);
+      // console.log(y);
+      // var p = {
+      //   name: "zs",
+      //   age: 18,
+      // };
+      // function fn(person) {
+      //   person.name = "ls";
+      //   console.log(person.name);
+      // }
+      // fn(p);
+      // console.log(p.name);
+      // function Person(name, age, salary) {
+      //   this.name = name;
+      //   this.age = age;
+      //   this.salary = salary;
+      // }
+      // function f1(person) {
+      //   person.name = "ls";
+      //   console.log(person.name);
+      // }
+      // var p = new Person("zs", 18, 1000); //创建一个新对象
+      // console.log(p.name); //zs
+      // f1(p); //ls
+      // console.log(p.name); //ls
+      // function Person(name, age, salary) {
+      //   this.name = name;
+      //   this.age = age;
+      //   this.salary = salary;
+      // }
+      // function f1(person) {
+      //   person.name = "ls"; // p的地址 把 p.name => ls
+      //   person = {
+      //     name: "mg",
+      //   };
+      //   console.log(person.name);
+      // }
+      // var p = new Person("zs", 18, 1000); //创建一个新对象
+      // console.log(p.name); //zs
+      // f1(p); // mg
+      // console.log(p.name); //ls
+      // let obj = {
+      //   name: "zs",
+      //   sayHi: function () {
+      //     console.log(this.name);
+      //   },
+      // };
+      // obj.sayHi();
+      // let date = new Date();
+      // console.log(date.toLocaleDateString());
+      // let arr = ["zs", "ls", "ww"];
+      // // let str = arr.join("|");
+      // console.log(arr.push("wl"));
+      // console.log(arr.pop());
+      // let arr = ["刘备"];
+      // arr.push("关羽", "张飞");
+      // arr.unshift("赵云", "马超");
+      // arr.shift();
+      // arr.shift();
+      // arr.shift();
+      // console.log(arr);
+      // var arr = ["赵云", "马超", "刘备", "关羽", "张飞"];
+      // // let last = arr.pop();
+      // // arr.unshift(last);
+      // arr.reverse();
+      // console.log(arr);
+      // var arr = [3, 6, 1, 5, 10, 2, 11];
+      // arr.sort(function (a, b) {
+      //   return a - b;
+      // });
+      // console.log(arr);
+      // var arr = ["b", "a", "c", "u", "z", "e"];
+      // arr.sort();
+      // console.log(arr);
+      // var arr = [18, 34, 21, 20, 66];
+      // arr.sort(function (a, b) {
+      //   return b - a;
+      // });
+      // console.log(arr);
+      // var arr = ["赵云", "马超", "刘备", "关羽", "张飞"];
+      // let arr1 = arr.slice(2, 4);
+      // console.log(arr1);
+      // arr.splice(2, 0, "zs");
+      // arr.splice(4, 1);
+      // console.log(arr);
+      // let index = 0
+      // for (let i = 1; i <= 10; i++) {
+      //   if (i == 5) {
+      //     index++
+      //     break
+      //   }
+      //   console.log(i)
+      // }
+      // // console.log(index)
+      // let str = 'abc'
+      // console.log(str.length)
+      // console.log(str.indexOf('b'))
+      // let str = 'abcABC'
+
+      // console.log(str.toUpperCase())
+      // console.log(str.toLocaleLowerCase())
+      // let str = '1-2-3'
+      // console.log(str.split('-'))
+
+      // let str = "我爱中华人民共和国";
+      // // let str1 = str.slice(2, 4);
+      // let str1 = str.substr(2, 2);
+      // console.log(str1);
+      // var str = "abcoefoxyozzopp";
+      // for (let i = 0; i < str.length; i++) {
+      //   if (str[i] == "o") {
+      //     console.log(i);
+      //   }
+      // }
+      // var str = "abcoefoxyozzopp";
+      // let str1 = str.replace(/o/g, "!");
+      // console.log(str1);
+      // var str2 = " xiao ma ge ";
+      // let str = str2.replace(/ /g, "");
+      // console.log(str);
+      // let str = "xiao-ma-gegege";
+      // let arr = str.split("-");
+      // // var str = "";
+      // // for (let i = 0; i < arr.length; i++) {
+      // //   // console.log(arr[i]);
+      // //   let e = arr[i];
+      // //   e = e[0].toLocaleUpperCase() + e.slice(1); //slice(1) 从下表开始一直截取到最后
+      // //   // console.log(e);
+      // //   str += e;
+      // // }
+      // // console.log(str);
+      let str = "xiao-ma-gegege";
+      // let arr = str.split("-");
+      // str = arr[0];
+      // for (let i = 1; i < arr.length; i++) {
+      //   let e = arr[i];
+      //   e = e[0].toLocaleUpperCase() + e.slice(1);
+      //   console.log(e);
+      //   str += e;
+      // }
+      // console.log(str);
+      let arr = str.split("-");
+      str = arr[0];
+      for (let i = 1; i < arr.length; i++) {
+        let e = arr[i];
+        e = e[0].toLocaleUpperCase() + e.slice(1);
+        str += e;
+      }
+      console.log(str);
+    </script>
+  </body>
+</html>

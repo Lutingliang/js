@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      /* #box {
+        width: 400px;
+        height: 50px;
+        background-color: aqua;
+        border: 1px solid #000;
+        margin: 100px auto;
+        font: bold 24px/50px 楷体;
+        text-align: center;
+        color: red;
+      } */
+      div {
+        width: 200px;
+        padding: 10px;
+        border: 10px solid #cccccc;
+        margin: 10px;
+        height: 200px;
+        background-color: #f99;
+      }
+    </style>
+  </head>
+  <body>
+    <div></div>
+    <!-- <a href="https://www.baidu.com" id="link">注册成功 3秒后跳转到首页</a> -->
+    <!-- <button>开始定时器</button>
+    <button>关闭定时器</button> -->
+    <script>
+      //   function fn() {
+      //     console.log(1);
+      //   }
+      //   //   setTimeout(fn, 1000);
+      //   let btn1 = document.querySelectorAll("button")[0];
+      //   let btn2 = document.querySelectorAll("button")[1];
+      //   let timeId;
+      //   btn1.onclick = function () {
+      //     timeId = setTimeout(function () {
+      //       console.log("boom shakalaka");
+      //     }, 5000);
+      //     console.log(timeId);
+      //   };
+      //   btn2.onclick = function () {
+      //     clearTimeout(timeId);
+      //     console.log(1);
+      //   };
+      //   timeId = setInterval(fn, 1000);
+      //   function change() {
+      //     box.innerText = new Date().toLocaleString();
+      //   }
+      //   setInterval(change, 1);
+      // let link = document.querySelector("#link");
+      // let count = 3;
+      // setInterval(() => {
+      //   count--;
+      //   link.innerText = "注册成功" + count + "秒后跳转到首页";
+      //   if (count === 0) {
+      //     // location.href = link.href;
+      //   }
+      // }, 1000);
+      // console.log(window.navigator.userAgent);
+      // console.log(screen);
+      // console.log(screen.width);
+      // console.log(screen.height);
+      // console.log(screen.availWidth);
+      // console.log(screen.availHeight);
+      let div = document.querySelector("div");
+      // console.log(div.style.width);  操作的仅仅是行内样式
+      console.dir(div);
+    </script>
+  </body>
+</html>

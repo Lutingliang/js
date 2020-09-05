@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /**
+      document文档,对象
+      document.getElementById() => 根据id获取页面中的元素 
+      参数 : 字符串的id名称
+      返回值 : 获取到这个元素 
+      1 .如果元素没有获取到 返回一个null
+      2 . js代码放到head中 这样也获取不到元素 因为代码是从上到下执行的
+      3 . id名称是唯一的, 不重复的 在ie中可以不用getElementById去获取元素，直接通过id名称去获取元素。知道即可，不是一个规范（有兼容性问题，有的浏览器不支持）不推荐这么来，还是要通过方法来获取元素。
+
+      事件  : 触发响应机制
+      事件的三要素
+      1 . 事件源 触发事件的元素
+      2 . 事件名称 : 触发了什么样的事件 比如 : 点击事件
+      3 . 事件处理函数 : 事件触发后要干嘛
+       
+      class 在 js中是一个关键字 在dom对象中 表示元素的类名 className
+      标签中写 class dom 对象中对应的是className
+
+      innerText 用来操作(获取&&设置) dom对象的文本内容
+
+      document.getELementByTagName('标签名')
+      作用 : 根据标签名去获取页面中的元素
+      参数 : 字符串类型的标签名
+      返回值 : 返回一个伪数组 伪数组里面就是获取到的每一个元素
+
+      有两种方法 : 
+       document.getElementsByTagName()  => 从页面中获取
+       box.getElementsByTagName() => 从某一个dom对象里查找元素
+      
+      在事件中 this指向当前元素 (事件源)
+
+      阻止a标签的跳转
+        1 . href='#'
+        2 . 注册点击事件 return false
+        3 . href='javascript:void(0)'
+      
+      鼠标经过事件 && 鼠标离开事件
+      onmouseover 当鼠标经过的时候触发
+      onmouseout 当鼠标离开的时候触发
+
+      表单属性操作 
+      type value name 
+      disabled 禁用
+      checked 单选 多选 选中状态
+      selected  下拉框的选中状态
+      disabled/checked/selected 布尔类型属性
+      1. 标签中的这三个属性 只有添加该属性(不管值是什么),属性的作用就会有其效果
+      2. dom 对象中的这三个属性,属性值只有 true/false
+
+      新事件 : input
+      onfocus 当获取焦点时触发  
+      onblur 当失去焦点时触发
+
+      假设成立法 
+      1. 先假设一个结果
+      2. 尝试推翻假设 -- 打脸
+
+      标签的自定义属性
+      固有属性 : 标签本来就有的属性 alt title src class id
+      自定义属性 : 自己定义的属性 不是固有属性 aa
+      自定义属性的作用 : 通常把数据存放在自定义属性上
+      标签的属性和dom对象的属性是11对应的(仅限于固有属性)
+      修改标签中aa 的属性值 => 标签中aa的属性值是不会发生改变的 dom对象中会添加aa属性
+      自定义属性的获取和设置会影响标签中的属性
+
+      属性操作的方法
+      getAttribute(name)  ===> 获取  有返回值
+      参数 name : 属性名 
+      作用 : 可以去获取dom对象的属性(不管属性是固有属性还是自定义属性都可以获取)
+      返回值 : 对应属性的值
+
+      setAttribute(name,value) ===> 设置  没有返回值
+      参数 name : 属性名 
+          value : 属性值
+      作用 : 可以设置属性值 
+
+      removeAttribute(name)
+
+      小结 : 
+      1. 自定义属性的获取和设置不会影响标签的属性
+      2. 对固有属性,现在有两种方法
+         a. dom对象的形式去操作属性 
+         b. set/getAttribute()去操作属性
+      3. 对应自定义属性只能通过 set/getAttribute()去操作属性
+      4. 如果是通过dom对象去修改元素的类名 , 必须要通过 clasName属性去修改
+         如果通过set/getAttribute去操作必须是class
+      5. 属性操作的三个方法, 不管是固有属性还是自定义属性都是来操作的
+
+      排他思想 : 先干掉所有人 在复活自己
+
+      innerText 和 innerHtml
+      innerText 只会文本内容 , 过滤了标签
+      innerHtml 会获取标签 + 内容
+      设置内容 innerText&&innerHtml 都是可以设置文本内容 共同点都是会覆盖标签原本的内容
+      设置待标签的内容
+        innerText 不能识别标签，会把标签进行转义，把标签当做是文字
+        innerHTML 能识别标签
+        box.innerText = "<h2>这是h2的内容</h2>";
+      
+      获取元素的方法
+        1. 通过id去获取  getELementById()
+           参数 : id 名
+           返回值 : 返回获取到的元素, dom对象 , 如果没有获取到元素 返回 null
+           documnet.getELementById('ul')
+
+        2. 通过标签名去获取
+           参数 : 标签名  getELementsByTagName(name)
+           返回值 : 伪数组 不管获取到的元素是有多少个 返回的都是一个伪数组
+           存在的问题 : 获取的不够准确
+           document.getELementsByTagName(name)
+
+        以上两个方法都没有兼容问题
+
+        3. 通过类名去获取 getElementsByClassName(classname)
+        作用 : 根据类名去获取页面中的元素
+        参数 : 字符串类型的类名
+        返回值 : 伪数组
+        document.getElementsByClassName(classname)
+        兼容性问题, ie678不支持
+
+        4. 通过name属性去获取 getELementsByName()
+           仅限于表单元素去使用
+        参数 : name属性
+        返回值 : 伪数组
+        document.getELementsByName()
+
+        5. 根据css选择器去选取
+        参数 :  css 选择器
+              id  #
+              类名 .
+              标签
+              子代 ul > li
+              后代 ul li
+              交集
+              并集
+        返回值 : 是一个元素 是获取到的元素中的第一个
+        作用 : 根据css选择器去获取页面中的元素
+        query 查询 Selector 选择器
+        documnet.querySelector(selectors)
+        注意点 :
+          1. 选择器的标识符号别忘记
+          2. getELementById() 不需要写 因为该方法已经指定了id来获取元素
+        
+        作用 : 根据css选择器获取所有的元素
+        参数 : css选择器
+        返回值 : 伪数组
+        document.querySelectorAll(selectors)
+
+        这个两个方法也有兼容性问题
+
+        总结
+        1 2 5 是获取元素的方法最常用
+        2. getELementById 参数是不需要带#号的
+           querySelectorAll querySelector 参数是一个css选择器 如果是id 需要带上#号的 如果是类名 需要写上.
+
+        样式操作 
+        通过类名去修改样式可以实现样式操作 但是不够灵活 样式提前写好固定死的
+        通过 style 属性去操作样式
+        style 是固有属性 , dom对象有style属性 
+        style 属性是一个对象 对象里面存储着元素的所有的行内样式
+        获取样式 -- 是行内样式
+        注意点 : 对于复合样式的写法 在标签中是用中划线链接的 但是dom对象中采用的是驼峰式写法
+        console.log(box.style.background-color);  - 在js中不是一个标识符
+        console.log(box.style.backgroundColor);
+        设置行内样式
+        注意 : 对于宽高样式需要带上单位的
+        box.style.width = '500px'
+        box.style.backgroundColor = 'aqua'
+        box.style.fontSize = '50px'
+
+        document 几个特殊的属性值 => 文档
+        document.body ==> body
+        document.head ==> head
+        documnet.title ==> title
+        document.documentElement ==> html
+
+        dom树
+        dom树 把页面中的任何一个节点操作树的一部分 节点又是对象 通过树形结构很容易的知道节点的关系 ( 父节点 兄弟节点 子节点)
+        操作节点也很方便(删除节点 , 添加节点 , 克隆)
+
+        节点的属性
+         nodeType  节点的类型 对于标签节点的类型是1 (一个节点的类型是1 代表该节点是元素)
+         nodeValue 节点的值
+         nodeName  节点的名称
+
+        
+        文本节点
+        标签节点
+        注释节点
+        属性节点  ==> 获取属性节点 getAttributeNode() 
+        
+        标签节点比 文本节点 注释节点 多出来的是on系列的事件 ,只有标签才能注册事件
+
+        孩子节点 
+        1 .childNodes 所有子节点
+        ul.childNodes  => Nodelist(9)
+
+        2. children 获取元素的所有子元素  ==> 没有兼容问题
+        通过夏鸥按标签的形式就可以去出对应的子元素  ==> HTMLCollection(4)
+        ul.children[ul.children.length-1] 
+
+        3. firstChild 获取第一个子节点  #text
+
+        4. firstElementChild 获取第一个元素子节点  <li></li>
+
+        5. lastChild 获取最后一个子节点 #text
+
+        6. ul.lastELementChild 获取最后元素子节点 <li></li>
+
+        兄弟节点 
+        previousSibling : 前面兄弟节点 #text
+        
+        previousElementSibling : 前面兄弟元素 <li></li>
+
+        nextSilbling : 后面兄弟节点  #text
+
+        nextElementSibling : 后面兄弟元素  <li></li>
+        
+        父节点 : parentNode  <ul> <li>*</li> </ul>
+
+        onkeyup 当键盘弹起的时候触发
+        onkeydown 当键盘按下的时候触发
+        
+        添加节点  appendChild(newChild) 
+        语法 : 
+        parent.appendChild(newChild)
+        参数 : 
+           parent : 父元素
+           newChild : 新添加的节点
+        作用 : 把元素添加到parent 内部的最后面
+        如果添加的元素是页面中本来就存在的元素就是一个剪切效果
+
+        insertBefore() 添加节点
+        语法 : parent.insertBefore(newChild,refChild) 
+        参数 : 
+             newChild 要添加的节点
+             refChild 添加在哪个节点的前面
+        作用 : 该方法可以添加元素 可以指定添加元素的位置
+        两个参数都要写
+        box.insertBefore(span)  ==> error
+        如果第二个参数 是 null 或者是 undefined 哪个 insertBefore()就是appendChild的效果
+        box.insertBefore(span,undefined)
+
+        克隆节点 cloneNode()
+        语法 : node.cloneNode(deep)
+        参数 : 
+        deep : 布尔类型 true 表示深拷贝 不仅要拷贝标签 还要拷贝标签里的内容
+                       false 浅拷贝 仅仅只会拷贝标签的自身 默认值
+        作用 : 在内存中拷贝节点 ( 拷贝出来的节点是看不到的 因为在内存中 需要添加到页面元素中)
+        操作 
+        1. 修改克隆出来的节点是不会影响到本体 
+        2. 如果克隆出来的节点带id 那么这样会和本体的id一样,所有需要把克隆出来的节点id给修改掉
+        克隆的节点是存在内存中,是看不到,需要添加到页面元素中
+        
+        删除节点 removeChild()
+        语法 parent.removeChild(child)
+        作用 从父元素上删除自身
+
+        创建节点 
+          document.write('<h1>这是内容</h1>')   存在问题会覆盖之前的文档
+          innerHTML() 存在的问题 :  在创建接节点的时候会覆盖标签内的默认文本内容
+                                  效率问题 - 创建节点的效率比较低
+          createELement() 
+            语法 : document.createELement(tagName)
+            参数 : tagName : 创建的标签
+            作用 : 可以创建节点(标签)创建的节点存在内存中 需要 appendChild()
+        小结 : 1. document.write() 基本使用
+              2. innerHTML 识别标签 可以用来创建节点 问题 : 会覆盖原来的内容
+              3. document.createElement('h1') 在内存中创建一个标签节点
+        
+        children 和 querySelectorAll 的区别 : 
+        querySelectorAll 静态元素集合
+        children 动态元素集合
+
+        动态和静态的区别
+        动态指的是当获取元素集合元素增加时 元素集合就会增加 元素减少而元素集合也会减少
+        静态集合 不会随着元素的增加减少而受到影响
+
+        window对象 
+          1 . window对象是js中的全局对象 也理解成js中的顶级对象
+             1.1 document,alert,console.log等等方法都是属于window的属性和方法
+             1.2 BOM中的对象也是window的属性
+             1.3 对于在全局中声明的变量(全局变量),声明的函数其实是window的属性和方法
+
+        window.onload()
+        表示当页面加载完成的时候,才执行. 入口函数 ==> window.onload()
+          1. 执行时机 : 真正的是页面加载完成了 , 还需要等待页面中的外部资源加载(img,css,js)好了才执行
+          2. 作用 : 可以在入口函数中去获取元素 , 无论js代码在head还是body中,保证能够获取到元素的
+          3. 注意点 : 页面中不可以写多个入口函数 后面的入口函数会覆盖前面的入口函数
+
+        window.open() && window.close()
+        语法 : window.open(url,name,feature)
+        参数 : url : 需要打开窗口的地址
+              name : 打开窗口页面的名称 可选
+                     新窗口可以通过 window.name 去获取该窗口的名称
+              feature : 窗口的特征 可选
+        作用 : 打开新的窗口 第三方登录的时候经常用到
+        返回值 : 打开页面窗口的window
+        newWin = window.open("http://www.baidu.com", "demo", "width=300,height=300");
+        newWin.close()
+
+        延时器 setTimeout()   有返回值 返回当前延时器的id ===> 关闭定时器 clearTimeout(timeId)
+        语法 : setTimeout(fn,delay)
+        参数 :  fn 要延时执行的函数 
+               delay 延时的时间 单位是ms
+        作用 : 延时delay时间去执行fn函数
+
+        定时器 : 每隔一段时间去执行一次 除非手动关闭定时器 否则会一直执行下去
+        语法 : setInterval(fn,interval)
+              interval 是间隔时间
+        清除定时器 
+        语法 : clearInterval(id)
+        id是定时器的id
+
+        this 谁调用 this指向谁
+        在事件处理函数中 this 指向时间源 (当前元素)
+        在定时器中的this this指向window
+        
+        location对象 
+        herf : 里面就是完整的路径
+        获取 location.href
+        设置href属性 跳转页面的效果
+        location.href = 'www.xxx.com'
+        location.reload() 重新加载页面
+
+        navigator 客户端的信息 属于window对象
+        window.navigator.userAgent 用户代理信息
+
+        history对象 浏览器的历史记录
+        back() 回退
+        forward() 前进
+        go(num) 
+        go(1) ===> forward()/go(-1) ===> back() / go(0) ===> 刷洗
+        go(num) num的数值要是大禹历史记录的数值不做处理
+        
+        刷新
+         1 . loacation.reload()
+         2 . location.href = ''
+         3 . history.go(0) 
+
+        screen对象
+        console.log(screen.width); 屏幕的宽度
+        console.log(screen.height); 屏幕的高度
+        console.log(screen.availWidth); 浏览器可占用的高度
+        console.log(screen.availHeight);  浏览器可占用的高度   
+
+        offsetheight 与 offsetWidth   获取元素的高宽大小
+        div.style.width ===> 操作的是行内样式
+        offsetWidth 获取的是元素的真实的宽度 width + padding + border ==> 无法设置 是只读属性 设置无效
+        
+        小结 : 
+        offsetWidth && offsetHeight
+        1. 作用: 用来获取元素的真实宽高
+        2.      返回值是纯数值
+        3. 注意点 : 只能获取,不能设置
+                   需要设置,使用style去设置行内样式
+
+        offsetParent && parentNode
+        parentNode ==> 获取元素的父元素
+        offsetParent ==> 获取距离元素最近有定位的父元素,如果没有获取到, 那么就获取body
+
+        offsetLeft && offsetTop
+        获取元素自身左侧有定位的父元素的左侧距离  ==> 真实的距离  
+        修改 style.left/top
+        
+        小结 : offset系列属性
+              offsetWidth offHeight ==> 获取元素的宽高
+              offsetParent ==> 获取距离元素有定位的父元素
+              offsetLeft/Top ==> 获取元素到offsetParent之间的距离
+              共同点 : 只读
+              需要设置 style.width/left
+        
+        && 和 || 逻辑短路问题 逻辑短路
+
+        || : 从左到右 找真值(布尔类型为 true) 如果找到了 直接返回该值 逻辑就中断了 或 后面的代码就不执行 都是假值就返回最后一个假值
+
+        || 使用场景 
+        1. 用来作兼容性处理
+        2. 给函数的参数设置默认值
+
+        fn(n){   当没有传参的时候 n = undefined
+          n = n || 20   给形参n设置默认值 10
+          console.log(n+20)
+        }
+
+        && : 从左到右 找假值(布尔类型为false) 如果找到了 返回这个假值 逻辑中断了 都是真值 就返回最后一个真值
+
+        && 的使用场景
+        fn(f){
+          f ===> 就是实参function
+          if(f){
+            f()
+          }
+          和上面的if 作用一样 如果f没有传递 f就是undefined f就返回了 逻辑中断 f()就不会执行
+          f && fn()
+        }
+
+        获取元素计算后的样式
+        widow.getComputedStyle(元素,伪类) 
+        参数 : 元素 : 需要获去那个元素的计算后的样式 DOM 对象
+        伪类 : ::after ::before
+        是获取元素伪类的样式 通常 不需要 获取元素的伪类
+        作用 : 获取 元素计算后的样式 
+        返回值 对象 有元素所有的计算后的样式
+        window.getComputedStyle(div,null)['left']
+
+        获取样式 
+        style 获取的是行内样式
+        offset 获取样式 只有几个特殊的样式
+        window.getComputedStyle(element,null) 所有计算后的对象
+        设置样式 : style区设置行内样式
+
+        scroll 家族
+        scrollWidth scrollHeight scrollLeft scrollTop
+
+        div.offsetWidth 真实宽度
+        div.scrollWidth 内容的宽
+        div.scrollHeight 内容的高
+        div.scrollTop 如果没有滚动条或者没有卷曲距离 只为0
+        div.onscroll 当滚动的时候触发
+
+        document.documentELement.scrollTop || document.body.scrollTop || 0
+
+        client家族
+        clientWidth clientHeight 可视区的宽高
+
+        scrollHeight 内容的宽    多出来的也算 
+        clienttHeight 可视区的高  不算
+
+        clientTop clientLeft => borderTop
+
+        获取页面的可视区的大小
+        
+         console.log(
+        document.documentElement.clientHeight || documnet.body.clientHeight || 0
+      );
+      console.log(
+        window.innerHeight ||
+          document.documentElement.clientHeight ||
+          documnet.body.clientHeight ||
+          0
+      );
+
+      onresize  当页面窗口发生改变的时候触发
+      window.onresize = function(){}
+
+      offset 系列可以获取元素的真实大小 以及元素的位置信息
+      scroll 系列 可以获取页面的卷曲距离  结合 onscroll
+             window.pageYOffset
+                  html.body/scrollTop
+      client 系列可以获取页面的可视区的大笑 结合onrise
+             window.innerWidth
+                  html.body/clientTop
+
+      事件对象 event
+      事件在触发的时候会产生一个事件对象 有所有的跟事件相关的信息
+      点击事件 事件对象中就有鼠标的位置信息
+      键盘对象 事件对象中就有按键的信息
+
+      获取
+      现代浏览器 在事件处理函数中写一个形参 形参就是事件对象
+      document.onclick = function(e){ }
+      老师浏览器  window.event window的event属性去获取实际对象
+      e = e || window.event
+      
+      e.
+      clientX clientY 鼠标相对于可视区的位置信息
+      pageX pageY     鼠标相对于页面的位置信息 
+      screenX screenY  书包相对于屏幕的位置信息
+
+      e.keyCode 键盘码
+
+
+
+        
+
+
+
+
+
+
+
+          
+
+
+
+
+    
+
+
+
+
+
+      
+
+
+
+
+
+
+      
+
+
+        
+        
+        
+        */
+    </script>
+  </body>
+</html>

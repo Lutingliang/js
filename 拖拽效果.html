@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      div {
+        width: 200px;
+        height: 200px;
+        background-color: #f99;
+        position: absolute;
+        cursor: move;
+      }
+    </style>
+  </head>
+  <body>
+    <div></div>
+    <script>
+      let open = false;
+      let disX = 0;
+      let disY = 0;
+      let div = document.querySelector("div");
+      div.onmousedown = function (e) {
+        open = true;
+        disX = e.clientX - div.offsetLeft;
+        disY = e.clientY - div.offsetTop;
+      };
+      document.onmousemove = function (e) {
+        if (open) {
+          div.style.left = e.clientX - disX + "px";
+          div.style.top = e.clientY - disY + "px";
+        }
+      };
+      document.onmouseup = function () {
+        open = false;
+      };
+    </script>
+  </body>
+</html>

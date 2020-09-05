@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+  <head lang="en">
+    <meta charset="UTF-8" />
+    <title></title>
+    <style>
+      body {
+        margin: 0 auto;
+        padding: 0px;
+        font-size: 12px;
+        background: url(images/bg.gif) repeat center 36px;
+        text-align: center;
+        background-color: #c30230;
+      }
+
+      #content {
+        margin: 0 auto;
+        width: 960px;
+        background: url(images/content_bg.jpg) no-repeat left top;
+        height: 627px;
+        position: relative;
+      }
+
+      #content .tip1 {
+        position: absolute;
+        width: 227px;
+        left: 0px;
+        top: 0px;
+      }
+
+      #content .tip1 .tip_h {
+        background: url(images/tip1_h.gif) no-repeat left top;
+      }
+
+      #content .tip1 .tip_h {
+        width: 227px;
+        padding-top: 45px;
+        height: 23px;
+        text-align: left;
+        cursor: move;
+      }
+
+      #content .tip1 .tip_c {
+        background: url(images/tip1_c.gif) repeat-y;
+      }
+
+      #content .tip1 .tip_c {
+        width: 200px;
+        padding-left: 12px;
+        padding-right: 15px;
+        min-height: 40px;
+        text-align: left;
+        line-height: 20px;
+        max-height: 160px;
+        word-wrap: break-word;
+        word-break: break-all;
+        overflow: hidden;
+      }
+
+      #content .tip1 .tip_f {
+        background: url(images/tip1_f.gif) no-repeat left top;
+      }
+
+      #content .tip1 .tip_f {
+        width: 227px;
+        height: 53px;
+        padding-top: 20px;
+      }
+
+      #content .close {
+        float: left;
+        font-size: 12px;
+        cursor: pointer;
+        color: #000000;
+      }
+
+      .clr {
+        clear: both;
+        overflow: auto;
+        display: block;
+        height: 0px;
+      }
+
+      #content .icon {
+        float: left;
+        width: 35px;
+        padding-left: 15px;
+        height: 35px;
+        text-align: center;
+      }
+
+      #content .name {
+        float: right;
+        padding-right: 15px;
+        text-align: right;
+        font-size: 14px;
+        line-height: 35px;
+        color: #c0f;
+      }
+
+      #content .num {
+        float: left;
+        padding-left: 7px;
+        width: 195px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="content">
+      <div class="tip1">
+        <div class="tip_h" title="双击关闭纸条">
+          <div class="num">第[49568]条 2016-02-17 22:51:52</div>
+          <div class="close" title="关闭纸条">×</div>
+          <div class="clr"></div>
+        </div>
+        <div class="tip_c">
+          每天都要被自己给帅醒，希望以后越来越帅！！！
+        </div>
+        <div class="tip_f">
+          <div class="icon">
+            <img src="images/bpic_1.gif" alt="" title="" />
+          </div>
+          <div class="name">成真的人</div>
+          <div class="clr"></div>
+        </div>
+      </div>
+    </div>
+    <script>
+      // 功能：
+      //  1. 克隆tip1， 克隆出来10份
+      // 1.1 for循环，循环10次，每循环一次，克隆出来一份添加到content
+      //  2. 随机每一个纸条的位置 -- for循环
+      //  2.1 获取所有的tip1
+      //  2.2 循环遍历每一个tip1，设置随机left、top
+      //  2.3 设置的left 、 top需要限制大小
+      //      left 范围 [0, content的宽度 - tip1的宽度]
+      //  3. 点谁谁上来
+      // 3.1 给每一个tip1注册click -- for
+      // 3.2 让当前的tip1的层级变大
+      //      var count = 0; 点谁，让count++。设置给当前的div
+      //  4. 点击关闭按钮，删除纸条
+      // 4.1 找所有的 close
+      // 4.2 给每一个close 注册click
+      // 4.3 删除当前的tip1（this ==> close， this.parentNode.parentNode）
+      //  5. 双击实现删除纸条
+      //   onclick ==> 点击事件（单击）
+      //   ondblclick  ==> 双击事件
+      //  5.1 找到所有tip1下面的tip_h
+      //  5.2 给tip_h 注册 双击事件
+      //  5.3 删除tip1 （this ==> tip_h     this.parentNode）
+      // let content = document.querySelector("#content");
+      // let tip1 = document.querySelector("#content .tip1");
+      // for (let i = 0; i < 10; i++) {
+      //   let newTip = tip1.cloneNode(true);
+      //   content.appendChild(newTip);
+      // }
+      // let tips = document.querySelectorAll("#content .tip1");
+      // let count = 0;
+      // for (let i = 0; i < tips.length; i++) {
+      //   let ranLeft = parseInt(Math.random() * 730);
+      //   let ranTop = parseInt(Math.random() * 445);
+      //   tips[i].style.left = ranLeft + "px";
+      //   tips[i].style.top = ranTop + "px";
+      //   tips[i].onclick = function () {
+      //     console.log(1);
+      //     this.style.zIndex = ++count;
+      //   };
+      //   let closeBtn = tips[i].querySelector(".close");
+      //   closeBtn.onclick = function () {
+      //     content.removeChild(this.parentNode.parentNode);
+      //   };
+      //   let tip_h = tips[i].firstElementChild;
+      //   tip_h.ondblclick = function () {
+      //     content.removeChild(this.parentNode);
+      //   };
+      // }
+      let content = document.querySelector("#content");
+      let tip1 = content.querySelector(".tip1");
+      for (let i = 0; i < 10; i++) {
+        let newTip = tip1.cloneNode(true);
+        content.appendChild(newTip);
+      }
+      console.log(content);
+      let tips = content.querySelectorAll(".tip1");
+      let count = 0;
+      for (let i = 0; i < tips.length; i++) {
+        // 随机tip位置
+        let ranLeft = parseInt(Math.random() * 730);
+        let ranTop = parseInt(Math.random() * 445);
+        tips[i].style.left = ranLeft + "px";
+        tips[i].style.top = ranTop + "px";
+        tips[i].onclick = function () {
+          this.style.zIndex = ++count;
+        };
+        let closeBtn = tips[i].querySelector(".close");
+        closeBtn.onclick = function () {
+          content.removeChild(this.parentNode.parentNode);
+        };
+        let tip_h = tips[i].firstElementChild;
+        // console.log(tip_h)
+        tip_h.ondblclick = function () {
+          content.removeChild(this.parentNode);
+        };
+      }
+    </script>
+  </body>
+</html>

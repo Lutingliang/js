@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    /* * {
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+    #list li {
+      list-style-type: none;
+      width: 80px;
+      height: 30px;
+      line-height: 30px;
+      background-color: beige;
+      text-align: center;
+      float: left;
+      margin-left: 5px;
+    }
+
+    #list li.current {
+      background-color: burlywood;
+    }
+
+    #list li a {
+      text-decoration: none;
+      display: block;
+      width: 100%;
+      height: 100%;
+    } */
+    /* a:link {
+      color: #642100;
+      text-decoration: none;
+    }
+
+    a:visited {
+      color: #642100;
+      text-decoration: none;
+    }
+    /* a:hover {
+      color: Red;
+      text-decoration: none;
+    } */
+
+    /* a:active {
+      color: Red;
+      text-decoration: none;
+    } */
+    #box {
+      padding: 20px;
+      background-color: #fcc;
+      border: 1px solid #000;
+    }
+  </style>
+  <body>
+    <ul>
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+      <li>4</li>
+      <li>5</li>
+    </ul>
+    <!-- <div id="box"></div>
+    <p id="demo">
+      <span>
+        这是span的内容
+      </span>
+    </p> -->
+    <!-- <ul id="ul">
+      <li>4</li>
+      <li>3</li>
+      <li class="three">2</li>
+      <li>1</li>
+    </ul> -->
+    <!-- <div id="menu">
+      <ul id="list">
+        <li class="current">
+          <a href="javascript:void(0);">首页</a>
+        </li>
+        <li><a href="javascript:void(0);">播客</a></li>
+        <li><a href="javascript:void(0);">博客</a></li>
+        <li><a href="javascript:void(0);">相册</a></li>
+        <li><a href="javascript:void(0);">关于</a></li>
+        <li><a href="javascript:void(0);">帮助</a></li>
+      </ul>
+    </div> -->
+    <!-- <div id="box">
+      <h1>啊啊啊</h1>
+      <h1>啊啊啊</h1>
+    </div>
+    <p>这个是p</p> -->
+    <script>
+      //   let ul = document.querySelector("ul");
+      //   let childs = ul.children;
+      //   let three = document.querySelector(".three");
+      //   console.log(ul.childNodes);
+      //   console.log(ul.children);
+      //   console.log(ul.firstChild);
+      //   console.log(ul.firstElementChild);
+      //   console.log(ul.lastChild);
+      //   console.log(ul.lastElementChild);
+      //   console.log("前面兄弟节点 :", three.previousSibling);
+      //   console.log("前面兄弟元素 :", three.previousElementSibling);
+      //   console.log("后面兄弟节点 : ", three.nextSibling);
+      //   console.log("后面兄弟元素 : ", three.nextElementSibling);
+      //   console.log("父节点 :", three.parentNode);
+      //   for (let i = 0; i < childs.length; i++) {
+      //     if (i % 2 == 0) {
+      //       childs[i].style.backgroundColor = "aqua";
+      //     } else {
+      //       childs[i].style.backgroundColor = "pink";
+      //     }
+      //   }
+      // let lis = document.querySelectorAll("#list li");
+      // let as = document.querySelectorAll("#list a");
+      //   for (let i = 0; i < lis.length; i++) {
+      //     lis[i].onclick = function () {
+      //       for (let i = 0; i < lis.length; i++) {
+      //         lis[i].className = "";
+      //       }
+      //       this.className = "current";
+      //     };
+      //   }
+      // for (let i = 0; i < as.length; i++) {
+      //   as[i].onclick = function () {
+      //     for (let i = 0; i < as.length; i++) {
+      //       as[i].parentNode.className = "";
+      //     }
+      //     this.parentNode.className = "current";
+      //   };
+      // }
+      // let div = document.querySelector("#box");
+      // let p = document.querySelector("p");
+      // div.appendChild(p);
+      // div.insertBefore(p, undefined);
+      // let box = document.querySelector("#box");
+      // let demo = document.querySelector("#demo");
+      // let newDemo = demo.cloneNode(true);
+      // newDemo.id = "newId";
+      // box.appendChild(newDemo);
+      // console.log(newDemo);
+      let lis = document.querySelectorAll("ul li");
+      for (let i = 0; i < lis.length; i++) {
+        lis[i].onclick = function () {
+          this.parentNode.removeChild(this);
+        };
+      }
+    </script>
+  </body>
+</html>

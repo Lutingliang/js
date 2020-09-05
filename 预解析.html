@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 预解析的规则
+      // 1 .var 声明的变量 , 声明提升 , 赋值不提升  ==> 提升到当前作用域的最顶端
+      // var num;
+      // console.log(num);
+      // num = 30;
+
+      // function test() {
+      //   var num1;
+      //   console.log(num1);
+      //   num1 = 50;
+      // }
+
+      // let fn; ===> 函数表达式
+      // fn(); // 只能函数() 才可以 其他都会报错
+      // fn = function () {
+      //   console.log("我是函数");
+      // };
+
+      // 2. 函数声明 (也会提升),整体提升 提升到作用域的最顶端
+      // function test() {
+      //   //===> 整体提升
+      //   console.log("我是函数");
+      // }
+      // test();
+      // function test() {
+      //   console.log("我是函数");
+      // }
+
+      // 3. (提升后) 多个函数重名 , 后者会覆盖前者
+      // test();
+      // function test() {
+      //   console.log("我是函数");
+      // }
+      // test();
+      // function test() {
+      //   console.log("我是函数1");
+      // }
+      // test();
+
+      // 4. (提升后) var声明和函数声明重名 , 函数声明 会覆盖var声明
+
+      // var num = 30;
+      // function num() {
+      //   console.log("我是函数");
+      // }
+      // console.log(num);
+      // num();
+
+      // var num;
+      // function num() {
+      //   console.log("我是函数");
+      // }
+      // num = 30;
+      // // console.log(num);  30
+      // num();   30()报错
+
+      // fn3();
+      // console.log(c);
+      // console.log(b);
+      // console.log(a);
+      // function fn3() {
+      //   var a;
+      //   c = 9;
+      //   b = c;
+      //   a = b;
+      //   console.log(a);
+      //   console.log(b);
+      //   console.log(c);
+      // }
+
+      // -------------
+      // function a() {
+      //   console.log("哈");
+      // }
+      // a = 4;
+      // console.log(a);
+      // a = 6;
+      // console.log(a);
+
+      // a(); //报错
+
+      // a = 10;
+      // console.log(a);
+    </script>
+  </body>
+</html>

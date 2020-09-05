@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        ul,ol,li{
+            list-style: none;
+        }
+        #box{
+            width: 790px;
+            height: 340px;
+            margin: 100px auto;
+            position: relative;
+            overflow: hidden;
+        }
+        #box ul{
+            /*保证ul足够宽，能够放下假图片*/
+            width: 1000%;
+            position: absolute;
+        }
+        #box ul li{
+            float: left;
+        }
+        #box ol{
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(255,255,255,.5);
+            border-radius: 20px;
+            padding: 0 5px;
+        }
+        #box ol li{
+            width: 12px;
+            height: 12px;
+            background-color: #fff;
+            border-radius: 50%;
+            float: left;
+            margin: 5px;
+            cursor: pointer;
+        }
+        #box ol li.current{
+            background-color: red;
+        }
+
+        /*左右箭头*/
+        #box .arrow{
+            display: none;
+        }
+        #box:hover .arrow{
+            display: block;
+        }
+
+        #box .arrow span{
+            width: 30px;
+            height: 60px;
+            background-color: rgba(0,0,0,.5);
+            position: absolute;
+            font-size: 24px;
+            z-index: 999;
+            top: 50%;
+            transform: translateY(-50%);
+            text-align: center;
+            line-height: 60px;
+            color: #fff;
+            font-family: "宋体";
+        }
+        #box .arrow span.prev{
+            left: 0;
+        }
+        #box .arrow span.next{
+            right: 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="box">
+        <!-- 图片 -->
+        <ul>
+            <li><img src="images/1.jpg" alt=""></li>
+            <li><img src="images/2.jpg" alt=""></li>
+            <li><img src="images/3.jpg" alt=""></li>
+            <li><img src="images/4.jpg" alt=""></li>
+            <li><img src="images/5.jpg" alt=""></li>
+            <li><img src="images/6.jpg" alt=""></li>
+            <li><img src="images/7.jpg" alt=""></li>
+            <li><img src="images/8.jpg" alt=""></li>
+        </ul>
+
+        <!-- 小圆点 -->
+        <ol></ol>
+
+        <!-- 左右箭头 -->
+        <div class="arrow">
+            <span class="prev">&lt;</span>
+            <span class="next">&gt;</span>
+        </div>
+    </div>
+
+    <script src="animate.js"></script>
+    <script>
+        // 轮播图效果展示： 移动的是ul的left
+
+        // 需求
+        // 1. js动态添加小圆点
+        // 2. js动态添加最后一张假图片
+        // 3. 实现左右焦点图 + 无缝滚动 + 同步小圆点
+        // 4. 自动播放
+        // 5. 点击小圆点同步切换
+        // 6. 解决点击小圆点的bug（展示最后一张假图片的时候，点击小圆点）
+
+        // 1. js动态添加小圆点
+        //   1.1 创建li元素 -- 根据imgs.length
+        //   1.2 添加到ol中
+        //   1.3 让第一个li高亮 ，添加current
+
+
+        var index = 0; // 用来表示当前展示的是一张图片的下标
+
+        // 1.
+        var nextBtn = document.querySelector("#box .arrow .next");
+        var prevBtn = document.querySelector("#box .arrow .prev");
+        var ul = document.querySelector("#box ul");
+        var imgs = ul.children;
+        var box = document.querySelector("#box");
+        var ol = document.querySelector("#box ol");
+        // var points = document.querySelectorAll("#box ol li"); // 静态
+        var points = ol.children;  // 动态的
+
+        // 1.js动态添加小圆点
+        for(var i = 0; i < imgs.length; i++){
+            // 1.1
+            var li = document.createElement("li");
+
+            // 1.2
+            ol.appendChild(li);
+
+            // 1.3
+            if(i === 0){
+                // 创建的第一个小圆点
+                li.className = "current";
+            }
+        }
+
+        // 注意点： 添加小圆点和假图片之间的顺序不能反过来
+        // 添加假图片
+        //  1. 克隆第一张图片，作为假图片
+        //  2. 添加到ul中
+        ul.appendChild(ul.firstElementChild.cloneNode(true));
+
+
+        // 2.
+        nextBtn.onclick = function () {
+            // 5.
+            if(index >= imgs.length - 1){
+                // 点击的时候，现在展示的就是最后一张了，此时展示的是那张假图片
+                // 去展示第一张
+                ul.style.left = 0;  // 瞬间回到第一张图片
+                index = 0;          // 下标同步为第一张图片的下标
+            }
+
+            // 4.
+            index++;
+            animate2(ul, -index * box.offsetWidth);
+
+
+            // 排他小圆点
+            //  在右箭头的点击事件中，需要考虑展示假图片的时候， index =8 
+            //  最后一个小圆点的下标是7
+            //  需要做判断，如果现在展示的是假图片，index = 8，让第一个小圆点高亮
+            // 
+            // 1. 把所有的小圆点的current类名去掉
+            // 2. 把对应下标（index）的小圆点加上current
+
+            // 1.
+            for (var i = 0; i < points.length; i++) {
+                points[i].className = "";
+            }
+            // 2.
+            if(index >= imgs.length - 1){
+                // 说明展示的是假图片，看到的是第一张，所以让第一个小圆点高亮
+                 points[0].className = "current";
+            }else{
+                points[index].className = "current";
+            }
+        }
+
+        // 左箭头的点击事件  index--
+        prevBtn.onclick = function(){
+            if(index <= 0){
+                // 点击的时候，展示的就是第一张图片(真的第一张图片)
+                
+                // 瞬间回到假图片的位置 = -假图片的下标* box.offsetWidth
+                // 修改index = 为假图片的下标
+
+                // 使用style 去设置left 单位别落下
+                ul.style.left = -(imgs.length - 1) * box.offsetWidth + "px";
+                index = imgs.length - 1;
+            }
+
+            index--;
+            animate2(ul, -index * box.offsetWidth);
+
+
+            // 排他小圆点
+            // 1. 把所有的小圆点的current类名去掉
+            // 2. 把对应下标（index）的小圆点加上current
+
+            // 1.
+            for (var i = 0; i < points.length; i++) {
+                points[i].className = "";
+            }
+            // 2.
+            points[index].className = "current";
+        }
+
+
+
+        // 自动播放 -- 原理：定时器里面去自动触发右箭头的点击事件
+        var timerId = setInterval(function(){
+            nextBtn.onclick()
+        }, 1000)
+
+
+        // 鼠标移入上去，清除定时器
+        //  1. 给box注册onmouseover
+        //  2. 清除定时器
+
+        box.onmouseover = function () {
+            clearInterval(timerId);
+        }  
+
+        // 鼠标离开box的时候，在重新开启一个新的定时器
+        box.onmouseout = function(){
+            // 注意点：
+            //  1. 开启的定时器，一定需要让timerId 变量接受
+            //  2. timerId 不能加var， 否则会成为局部变量，在onmouseover的时候清除定时器，获取不到timerId的值
+            timerId = setInterval(function(){
+                nextBtn.onclick()
+            }, 1000)
+        }
+
+
+        // 实现点击小圆点切换图片
+        //  1. 给每个小圆点注册click
+        //  2. 先给小圆点存下标
+        //  3. 点击的时候，获取当前小圆点的下标， 修改ul的left = -当前小圆点的下标 * 一张图片的下标
+        //  4. 排他小圆点的高亮效果
+
+
+        // 1.
+        for (var i = 0; i < points.length; i++) {
+            // 2.
+            points[i].index = i;
+
+            points[i].onclick = function () {
+
+                // 淘宝bug：
+                // 当展示假图片的时候，在点击小圆点的时候，会让ul倒着移动到点击的小圆点对应的图片。
+                if(index >= imgs.length - 1){
+                    // 当前展示的是假图片
+                    ul.style.left = 0; // 瞬间回到第一张图片
+                    index = 0; // 写不写无所谓，因为后面会同步index的值为点击小圆点的下标
+                }
+
+                // 3.
+                var idx = this.index;
+                animate2(ul, -idx * box.offsetWidth);
+
+                // 注意点： 需要同步index
+                index = this.index; // 当前点击的li的下标赋值index变量
+
+                // 4.
+                for (var i = 0; i < points.length; i++) {
+                    points[i].className = "";
+                }
+                this.className = "current";
+            }
+        }
+    </script>
+</body>
+
+</html>

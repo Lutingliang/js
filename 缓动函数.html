@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      div {
+        width: 100px;
+        height: 100px;
+        background-color: #f99;
+        position: absolute;
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <button>按钮</button>
+    <div></div>
+
+    <script>
+      let btn = document.querySelector("button");
+      let div = document.querySelector("div");
+      btn.onclick = function () {
+        console.log(div.style);
+        // animate(div, { left: 800 }, function () {
+        //   animate(div, { top: 300 }, function () {
+        //     animate(div, { borderRadius: 50 }, function () {
+        //       animate(div, { left: 0 });
+        //     });
+        //   });
+        // });
+        animate(div, { left: 800 }, function () {
+          // 当动画结束的时候，这个函数才出发
+          animate(div, { top: 300 }, function () {
+            animate(div, { borderRadius: 50 }, function () {
+              animate(div, { left: 0 });
+            });
+          });
+        });
+      };
+      function animate(ele, obj, fn) {
+        clearInterval(ele.timerId);
+
+        ele.timerId = setInterval(function () {
+          let flag = true;
+          for (let k in obj) {
+            let attr = k;
+            let target = obj[k];
+            let current = window.getComputedStyle(ele, null)[attr];
+            current = parseInt(current);
+            let step = (target - current) / 10;
+            step = step > 0 ? Math.ceil(step) : Math.floor(step);
+            current += step;
+            ele.style[attr] = current + "px";
+            if (current != target) {
+              flag = false;
+            }
+          }
+          if (flag) {
+            clearInterval(ele.timerId);
+            fn && fn();
+          }
+        }, 30);
+      }
+    </script>
+  </body>
+</html>

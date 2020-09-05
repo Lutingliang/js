@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 原型
+      // 1 . 任何函数都有prototype 属性 侧面说明了函数也是对象
+      // 2 . 函数的prototype 属性值是一个对象 这个对象叫做原型
+      // 3 . 原型的作用 :通过构造函数创建出来的实例对象可以直接访问这个构造函数的prototype属性的任意成员
+
+      function Person(name, age) {
+        this.name = name;
+        this.age = age;
+      }
+
+      Person.prototype.color = "lime";
+      Person.prototype.leg = 2;
+      Person.prototype.name = "lw";
+      Person.prototype.gender = "male";
+      Object.prototype.gender = "female";
+
+      Person.prototype.sayHi = function () {
+        console.log("hi");
+      };
+
+      // console.log(Person.prototype);
+
+      // let p = new Person();
+      // console.log(Object.prototype);
+      // console.log(p.hasOwnProperty("name"));
+      // console.log(p.hasOwnProperty("sayHi"));
+      // console.log(p.hasOwnProperty("hasOwnProperty"));
+      // console.log("hasOwnProperty" in p);
+
+      // for (let k in p) {
+      //   if (p.hasOwnProperty(k)) {
+      //     console.log(k);
+      //   }
+      //   console.log(k);
+      // }
+
+      // let obj = {
+      //   name: "xmg",
+      // };
+      // console.log(obj.valueOf());]
+      // let arr = [1, 2, 3];
+      // console.log(arr.valueOf());
+
+      // console.log(p.constructor == Person);
+      // console.log(p.__proto__ == Person.prototype);
+      // console.log(Person.prototype.__proto__);
+      // console.log(
+      // Person.prototype.__proto__.constructor == Object.prototype.constructor
+      // ); //obj
+      // console.log(Object.prototype.__proto__); // ==> 原型链的终点 null
+      // console.log(p.color);
+      // p.sayHi();
+
+      // console.log(p.name);
+      // console.log(p.age);
+      // console.log(p.leg);
+      // console.log(p.gender);
+      // console.log(p.sex);
+      // console.log({} == !{});
+      // console.log({} == ![]);
+      // console.log(![] == {});
+      // console.log([] == !{});
+
+      let date = new Date();
+
+      console.log(date.toString());
+      console.log(date.toLocaleString());
+
+      /**
+      原型三角关系的解释
+      构造函数: 妈妈
+      原型对象: 爸爸
+      实例对象: 儿子
+
+      构造函数和原型对象之间的关系 : 配偶关系
+        构造函数通过 prototype 属性去访问原型对象
+        原型对象通过 construtor 属性去访问构造函数
+
+      构造函数和实例对象之间的关系 : 母子关系
+        构造函数可以new得到实例对象(孩子)
+        实例对象不可以直接访问构造函数
+
+      原型对象和实例对象之间的关系 : 父子关系
+        实例对象可以通过__proto__属性访问原型对象
+        实例对象可通过原型的construtor属性访问到构造函数
+
+
+
+      */
+    </script>
+  </body>
+</html>

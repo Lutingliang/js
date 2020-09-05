@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /**
+        注册事件的方式 
+        1 . on + 事件名(存在覆盖的问题)
+        document.onclick = function(){
+        }
+        解绑事件 
+        document.onclick = null
+
+        2. 添加事件监听 注册事件
+        语法 : addEventListener(event,listener,useCapture)
+        参数 : event ===> 事件名 onclick 事件名就是click
+                    on 仅仅表示 当..的时候
+              listener ===> 事件处理函数
+              useCapture ==> 默认值 false (可选) 可以用来该事件是在冒泡还是捕获阶段触发
+        这种绑定事件的方式是无法解绑的
+        单纯的个函数起一个函数名, 这种方式也是无法解绑的 因为 foo在函数的外部无法使用
+                  原因 : 函数声明在()内 被解析成具体的函数表达式 
+        document.addEventListener('click',function foo(){})
+        function fn (){}
+        document.addEventListener('click',fn)
+
+        解绑事件 
+        语法 : removeEventListener(type,listener,useCapture)
+        参数 : type ==> 事件名
+              listennr ==> 事件处理函数
+        如果使用removeEventListener  来解绑 removeEventListener 注册的事件 解绑的事件处理函数不能是函数表达式
+        
+        事件的三个阶段  onclick 是事件冒泡
+        1. 事件捕获 从外到内
+        2. 目标阶段 
+        3. 事件捕获 从内到外
+
+        事件捕获和冒泡是传播方式 不论元素有没有注册上事件都会传播
+
+        面向对象编程 oop的三大特征 
+        1. 封装  函数封装 使用对象来封装
+        2. 继承  子承父业 一个对象没有的属性和方法 另外一个对象有 拿过来直接使用 就是实现了继承(拿来主义)
+                js中继承是指对象之间的关系
+                其他编程语言中 类与类的关系
+        3. 多态  多种形态 js不支持多态
+
+        创建对象的几种方式
+        1.Object构造函数创建 (麻烦)
+        let obj = new Object();
+        给对象添加属性和方法
+        obj.name = 'zs';
+        obj.age = 18;
+
+        2.字面量  (一次只能创建一个对象)
+        let obj = {
+          name : 'zs',
+          age : 18
+        }
+
+        3.工厂函数  用来批量创建对象 -- 问题 : 无法识别类别 不知道是哪个构造函数创建出来的
+        function createPerson(name,age){
+          return {
+            name : name,
+            age : age
+          }
+        }
+        let obj = createPerson('zs',18)
+
+        4.自定义构造函数
+        function Person(name){
+          this.name = name;
+        }
+        p = new Person('zs')
+
+        new的作用
+        1. 创建一个新对象
+        2. this指向这个新对象
+        3. 执行构造函数
+        4. 返回这个新对象
+
+        构造函数创建对象有问题 造成了内存浪费 只需要在内存中需要一份sayHi 方法就行了 现在是每创建一个对象就会在内存中创建一个sayHi方法 ==> 造成内存浪费
+        ==> 解决构造函数创建对象造成的内存浪费的问题 ==> 让实例对象所需要的方法 在构造函数外部去创建 这样创建之会创建一次 内存中只会只有一个这样的方法
+
+        原型 : 
+        1. 任何函数都有prototype 属性 侧面也说明函数也是对象
+        2. 函数的prototype 属性是一个对象 这个对象叫做 原型 
+        3. 原型的作用 通过构造函数创建出来的实例对象可以直接访问这个构造函数的 prototype属性的任意成员
+
+        小结 
+        1 . 原型 : 函数的prototype属性的值
+        2 . 原型的作用 :  通过构造函数创建出来的实例对象可以直接访问这个构造函数的prototype属性的任意成员
+        3 . 原型可以解决构造函数创建对象造成的内存浪费问题 
+            而且 这个原型对象不是我们手动创建出来的
+
+        原型三角关系
+        function Person(){}
+
+        原型对象 
+        Person.prototype
+
+        实例对象 
+        let p = new Person
+
+        小结 
+        1. 构造函数的protype属性本来就有的
+        2. 构造函数创建出来的实例对象可以直接访问原型上的任意成员
+
+        __proto__属性
+        1. 任何对象都有__proto__属性 属性值指向了当前构造函数的prototype 其实就是指向了原型
+        Person.prototype == p.__proto__  
+        原型对象有两种访问方法 构造函数.prototype 实例对象.__proto__
+        
+        注意点 
+        1. __proto__是私有属性 不希望去访问和修改
+        2. 该属性不是一个标准的属性 存在浏览器兼容的问题 ie678 不支持 不要通过__proto__的方式去修改原型上的成员 不要在线上代码中使用 
+        该属性在实际开发中使用 ,可以通过实例对象的角度去访问原型对象
+        p.__proto__.age = 21 ===> 不推荐
+        推荐这种方法去修改原型
+        Person.protype.age = 20;
+
+        constructor属性
+        1. 该属性是原型对象中自带的属性
+        2. 该属性是指向了当前的构造函数
+
+        通过原型对象去获取constructor属性 拿到构造函数Person
+        Person.prototype.constructor == Person
+
+        通过实例对象的角度获取constructor属性 拿到构造函数 Person
+        p.constructor == Person 
+
+        原型链
+        任何对象有__proto__属性 该属性指向了原型对象 原型对象也是对象 原型对象也有__proto__属性, 属性值指向了原型对象的原型对象 这样一环套着一环形成的链式结构 叫做原型链
+        
+        内置对象的原型链 
+      let arr = new Array()
+      arr ==> Array.prototype ==> Object.prototype ==> null
+
+      任何函数对象的原型链上都有Object.protype属性 (因为原型是一个对象,对象是通过Object构造含糊是 new创建出来的)
+
+      属性的搜索原则:
+      1. 首先在当前对象自身上进行查找是否有该属性 如果有 直接返回结果
+      2. 如果对象自身没有该属性, 去对象的原型上进行查找, 如果有 . 直接返回结果
+      3. 如果没有 ,继续往上查找 知道 Object.prototype 属性 如果有 ,直接返回结果
+      4. 如果Object.prototype原型上也没有返回undefined
+
+      小结 : 
+      属性搜索原则 : 沿着原型链进行查找
+      属性设置原则 : 有就覆盖, 没有就添加
+
+      相等与全等
+      ==   相等  比较的是值
+      ===  全等  比较类型还比较值
+
+      相等比较规则 (一条从上到下的匹配规则 匹配到那一条应用那一条规则)
+      1.NaN 与任何值不相等 包括 NaN 本身
+      2.null 与任何值不相等 除了null 和 undefined
+      3.undefined 与任何值不相等 除了null和 undefined
+      4.如果操作数有布尔类型或者数字 把操作数都转成数值进行比较
+      5.如果操作数有一个是字符串 把操作数都转为字符串比较 
+      6.如果操作数两边都是复杂数据类型 比较的是地址
+
+      ! 运算符的优先级要高于比较运算符
+      ! 取反 
+      [] 布尔类型为true 但是 +[] ==>  0  / {} / true / "123" / "0"
+      ![] ==> false
+      如果快速转化为布尔类型   ==>  !!
+      [] == !{}   首先!{} 优先 为 false  +false == 0 == +[] 
+
+      Object.prototype常用成员介绍 
+      任何对象的原型链上都有Object.prototype 意味着任何对象都可以访问Object.protype 上的成员
+      hasOwnProperty  有自己的属性 
+
+      prototype 原型
+      property 属性
+
+      语法 : 对象.hasOwnProperty("属性")
+      作用 : 判断该属性是否是对象自身的属性 如果是 返回 true
+
+      hasOwnProperty() 判断属性是否是对象自身的属性
+      该方法来源于Object原型上
+
+      hasOwnProperty() 运算符 : 判断属性是否是对象自身的
+      in 运算符 : 判断是否该属性是否可以使用 如果可以使用 就返回true
+      语法 : 属性 in 对象
+      in 和 hasOwnProperty 之间的区别 in 是判断是否可以使用 不管该属性是对象自身的还是原型链上
+
+      valueOf 来源于 Object的 原型   
+      作用 : 将对象转成原始值(简单数据类型) 但是 Object原型上的valueOf达不到目的 把对象自身给返回了
+
+      toString 和 toLocalString 都是来源于 Object 原型上的方法
+      任何内置对象的原型上都有toString 方法
+      obj.toString() ==> [object Object]
+      arr.toString() ==> "1,2,3"
+         .toLocalString() ==> '1,2,3'
+      toLocalString 和 toString没啥区别 唯一 区别在日期对象上
+
+      toString ==> Thu Aug 27 2020 23:40:53 GMT+0800 (中国标准时间)
+      toLocalString ==> 2020/8/27 下午11:41:47
+
+      valueOf 和 toString详解
+      对象在参与运算和比较的时候 js引擎会自动的帮我们去调用这个方法
+      调用规则 
+      1. 默认调用ValueOf 方法 尝试把对象转成简单数据类型 如果没有得到简单的数据类型 在继续调用toString()方法 
+
+      沙箱模式 : 沙箱内部的变化是不会影响到外面的
+      (function(window){})(window)
+
+      (function (window) {
+        函数内部写代码就可以防止全局污染
+        let num = 10;
+        function fn1() {
+          console.log(111);
+        }
+        function fn2() {
+          fn1();
+        }
+        fn() 
+        将fn函数暴露到全局对象中
+        在一个js文件中 通常只会暴露一个核心的功能(函数)
+        window.fn2 = fn2;
+      })(window);
+      fn2();
+      自调用函数内部的代码是不会影响到外部的环境 所有自调用函数也叫沙箱模式
+
+      严格模式 (strict mode)
+      es5 提出来点一种代码运行模式
+      作用 : 原本是不规范的代码 运行是没有问题的 在严格模式下 运行不规范的代码直接以报错的形式展示出来 
+      开启严格模式
+      "use strict"
+
+      规定: 
+      1 . 变量必须显示声明
+      2 . 函数参数不能重名 
+      3 . 禁止使用8进制
+      不能使用保留字作为变量名称 ：implements, interface, let, package, private, protected, public, static, yield
+
+      使用建议: 
+      1. 不要在全局下开启严格模式
+      原因： 在引用第三方js库的文件，如果第三方的js没有遵循严格模式，那么我们在全局中开启了严格模式，就会让第三方的js文件也运行在严格模式下，那么就会报错，无法实现功能。
+      2. 严格模式 + 沙箱模式去一起使用
+      在沙箱模式里面开启了严格模式 那么只有沙箱内部的代码需要遵循严格模式 ==> 原理 :  严格模式只会在当前作用域内生效
+
+      注意点：
+       "use strict"; 开启严格模式，前面不能有任何代码，这句话必须要写在当前作用域的最顶部。如果"use strict";前面有任何代码，开启严格模式失败
+
+      继承
+       子承父业 
+       js来说 : 一个对象没有的属性和方法 另外一个对象有 拿过来使用就是继承
+       目的 : 让一个对象可以使用另一个对象的成员
+      
+      实现继承的方法
+       1. 混入继承 让一个对象拷贝另一个对象的成员
+       2. 原型链继承 原型链替换 不过要加constructor属性
+          混入式 + 原型链继承  原型拷贝另外一个对象的成员
+       3. 经典继承 Object.create() 
+
+      定义函数的三种方式
+      1. 函数声明  可以先调用 再声明 因为预解析
+      fn() 
+      function fn(){}
+
+      2. 函数表达式 不可以 在声明 因为预解析只会把声明提升
+      let fn2
+      fn2 ()
+      fn2 = function(){}
+
+      3.函数也是对象 对象都是构造函数创建出来的 Function
+      语法 : let function = new Function(arg1,arg2,....,BodyFn) 
+      参数 : 参数可以若干个 除了最后一个参数BodyFn 是创建出来的函数的函数体 其他的参数都是创建出来的额函数的形参
+      注意点: 参数都是字符串类型的
+      let fn = new Function('n1','n2','console.log(n1 + n2)')
+      如果参数只有一个 该参数作为函数体存在
+
+      try - catch
+      语法
+      try ==> 尝试
+      catch ==> 捕获
+      try 里面的代码始终要执行 如果try中的代码有错误 就会被 catch捕获到 执行 catch语句代码
+
+      eval('alert(1)')
+      eval 可以执行字符串代码
+      
+      
+
+
+      
+
+      
+
+        */
+    </script>
+  </body>
+</html>

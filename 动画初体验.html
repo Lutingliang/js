@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      div {
+        width: 100px;
+        height: 100px;
+        background: #f99;
+        position: relative;
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- <button id="btn">动画</button> -->
+    <button>按钮去 400</button>
+    <button>按钮去 800</button>
+    <div></div>
+    <script>
+      //   let btn = document.querySelector("#btn");
+      //   let div = document.querySelector("div");
+
+      //    没动画效果
+      //   btn.onclick = function () {
+      //     div.style.left = "400px";
+      //   };
+
+      // 有动画效果
+      //   做动画原理: 在元素当前位置上每一次移动一段距离;
+      //   let current = 0;
+      //   btn.onclick = function () {
+      //     current += 10;
+      //     div.style.left = current + "px";
+      //   };
+
+      // 改进div默认的位置
+      //   btn.onclick = function () {
+      //     let current = div.offsetLeft;
+      //     current += 10;
+      //     div.style.left = current + "px";
+      //   };
+
+      // 使用定时器
+      //   btn.onclick = function () {
+      //     setInterval(() => {
+      //       let current = div.offsetLeft;
+      //       current += 10;
+      //       div.style.left = current + "px";
+      //     }, 100);
+      //   };
+
+      // 到达终点清除定时器
+      //   btn.onclick = function () {
+      //     let timerId = setInterval(() => {
+      //       let current = div.offsetLeft;
+      //       console.log(current);
+      //       if (current >= 400) {
+      //         clearInterval(timerId);
+      //       } else {
+      //         current += 10;
+      //         div.style.left = current + "px";
+      //       }
+      //     }, 30);
+      //   };
+
+      let btn1 = document.querySelectorAll("button")[0];
+      let btn2 = document.querySelectorAll("button")[1];
+      let div = document.querySelector("div");
+      btn1.onclick = function () {
+        // console.log(1);
+        animate(div, 400);
+      };
+      btn2.onclick = function () {
+        // console.log(2);
+        animate(div, 800);
+      };
+      //   封装
+      function animate(element, target) {
+        clearInterval(element.timerId);
+        element.timerId = setInterval(() => {
+          let current = element.offsetLeft;
+          let step = current < target ? 10 : -10;
+          if (Math.abs(target - current) < Math.abs(step)) {
+            clearInterval(element.timerId);
+            element.style.left = target + "px";
+          } else {
+            current += step;
+            element.style.left = current + "px";
+          }
+        }, 30);
+      }
+    </script>
+  </body>
+</html>

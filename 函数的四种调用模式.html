@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 函数的四种调用模式
+
+      // 1. 函数调用模式 this ==> window
+      //   function fn() {
+      //     console.log(this);
+      //   }
+      //   函数名();
+      //   fn();
+
+      //   2. 方法调用模式 this ==> 调用方法的对象
+      let f = function () {
+        console.log(this);
+      };
+      //   let obj = {
+      //     abc: "abc",
+      //     fn: f,
+      //   };
+      //   对象.方法名() 对象['对象名']()
+      //   obj.fn();
+      //   obj["fn"]();
+
+      //   点语法, 中括号来访问对象的方法 都是属于方法调用模式
+
+      //   let arr = [f, 10, 20];
+      //   arr[0]();
+
+      // 上面的this这么去理解
+      // var arr = {0: f, 1: 10, 2: 20};
+      // arr[0]();
+
+      //   3.构造函数模式 ==> this ==> 实例对象
+      //   function Person() {
+      //     console.log(this);
+      //   }
+      //   let p = new Person();
+
+      //   4.上下文模式
+    </script>
+  </body>
+</html>

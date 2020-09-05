@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        ul,ol,li{
+            list-style: none;
+        }
+        #box{
+            width: 790px;
+            height: 340px;
+            margin: 100px auto;
+            position: relative;
+            overflow: hidden;
+        }
+        #box ul{
+            width: 800%;
+            position: absolute;
+        }
+        #box ul li{
+            float: left;
+        }
+        #box ol{
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(255,255,255,.5);
+            border-radius: 20px;
+            padding: 0 5px;
+        }
+        #box ol li{
+            width: 12px;
+            height: 12px;
+            background-color: #fff;
+            border-radius: 50%;
+            float: left;
+            margin: 5px;
+            cursor: pointer;
+        }
+        #box ol li.current{
+            background-color: red;
+        }
+
+        /*左右箭头*/
+        #box .arrow{
+            display: none;
+        }
+        #box:hover .arrow{
+            display: block;
+        }
+
+        #box .arrow span{
+            width: 30px;
+            height: 60px;
+            background-color: rgba(0,0,0,.5);
+            position: absolute;
+            font-size: 24px;
+            z-index: 999;
+            top: 50%;
+            transform: translateY(-50%);
+            text-align: center;
+            line-height: 60px;
+            color: #fff;
+            font-family: "宋体";
+        }
+        #box .arrow span.prev{
+            left: 0;
+        }
+        #box .arrow span.next{
+            right: 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="box">
+        <!-- 图片 -->
+        <ul>
+            <li><img src="images/1.jpg" alt=""></li>
+            <li><img src="images/2.jpg" alt=""></li>
+            <li><img src="images/3.jpg" alt=""></li>
+            <li><img src="images/4.jpg" alt=""></li>
+            <li><img src="images/5.jpg" alt=""></li>
+            <li><img src="images/6.jpg" alt=""></li>
+            <li><img src="images/7.jpg" alt=""></li>
+            <li><img src="images/8.jpg" alt=""></li>
+        </ul>
+
+        <!-- 小圆点 -->
+        <ol>
+            <li class="current"></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ol>
+
+        <!-- 左右箭头 -->
+        <div class="arrow">
+            <span class="prev">&lt;</span>
+            <span class="next">&gt;</span>
+        </div>
+    </div>
+
+    <script src="animate.js"></script>
+    <script>
+        // 轮播图效果展示： 移动的是ul的left
+
+        // 需求： 点击左右箭头，切换ul
+
+        // 思路：
+        //  1. 找对象
+        //  2. 给右箭头注册click
+        //  3. 先定义一个变量存储下标  index = 0; // 默认展示第一张图片，第一张图片的下标就是0 
+        //  4. 点击的时候，index++， 修改ul的left = - index * box.offsetWidth
+        //  5. 限制index 的范围， 保证切换到最后一张的时候，点击右箭头就没有反应了
+
+
+        var index = 0; // 用来表示当前展示的是一张图片的下标
+
+        // 1.
+        var nextBtn = document.querySelector("#box .arrow .next");
+        var prevBtn = document.querySelector("#box .arrow .prev");
+        var ul = document.querySelector("#box ul");
+        var imgs = ul.children;
+        var box = document.querySelector("#box");
+
+
+        // 2.
+        nextBtn.onclick = function () {
+            // 5.
+            if(index >= imgs.length - 1){
+                // 点击的时候，现在展示的就是最后一张了
+                return;
+            }
+
+            // 4.
+            index++;
+            animate(ul, -index * box.offsetWidth, 80);
+        }
+
+        // 左箭头的点击事件  index--
+        prevBtn.onclick = function(){
+            if(index <= 0){
+                // 点击的时候，展示的就是第一张图片
+                return;
+            }
+
+            index--;
+            animate(ul, -index * box.offsetWidth, 80);
+        }
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      #accordion {
+        width: 1200px;
+        height: 400px;
+        margin: 100px auto;
+        border: 2px solid pink;
+        position: relative;
+        overflow: hidden;
+      }
+
+      #accordion li {
+        width: 1200px;
+        height: 400px;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="accordion">
+      <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+    </div>
+    <script src="../animate.js"></script>
+    <script>
+      let accordion = document.querySelector("#accordion");
+      let lis = document.querySelectorAll("#accordion>ul>li");
+      console.log(lis);
+      for (let i = 0; i < lis.length; i++) {
+        lis[i].index = i;
+        lis[i].style.backgroundImage = "url(images/" + (i + 1) + ".jpg)";
+        lis[i].style.left = i * 240 + "px";
+        lis[i].onmouseover = function () {
+          console.log(i, this.index);
+          for (let i = 0; i < lis.length; i++) {
+            if (i <= this.index) {
+              animate(lis[i], { left: i * 100 });
+            } else {
+              animate(lis[i], { left: i * 100 + 700 });
+            }
+          }
+        };
+      }
+      accordion.onmouseout = function () {
+        for (let i = 0; i < lis.length; i++) {
+          animate(lis[i], { left: i * 240 });
+        }
+      };
+    </script>
+  </body>
+</html>

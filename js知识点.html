@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /**
+         *
+数据类型 =================================================================>
+          数据类型 简单的数据类型 : num str 布尔 undefined null bigint sysmbol
+          复杂的数据类型 : arr obj function  
+
+          undefined 和 null 的关系 
+          undefined 和null都是非正常值 
+          undefined : 只声明没有赋值 
+          null : 空类型/空值获取值,但是没有找到 null 表示一个值被定义了 定义为空值 
+          undefined表示根本不存在定义 
+          所以是设置一个值为null是合理的 (objA.valueA = null)
+          但设置一个值为undefined是不合理的 
+
+
+运算符 =================================================>
+
+          运算符/操作符 
+            1.算术运算符 ( + - * / % ) => %
+            2.赋值运算符 ( = += -= *= /= %=) 
+            3.一元运算符 ( 自增++ 自减--) 4.逻辑运算符 &&||! 
+            5. 比较运算符 ( == ===) 
+
+          布尔类型 true:真 成立/false: 假 不成立 注意 1. false :
+          布尔类型 false 2. false != "false" 
+          查看数据类型 typeof typeofnum/str/b/undefined/null 
+
+          赋值 (字面量赋值/变量赋值) 
+            1.字面量赋值 => 字面量,直接量,就是一眼就看出来是什么类型的数据 
+            let num = 10 let str ='123'
+            2.变量赋值 => 把一个变量,赋值给另一个变量 这种赋值就是变量赋值  
+            let x =服务器获取过来 let num = x
+
+          赋值运算符 = +=(重点) -= *= /= %=
+          num += 5 => num = num + 5
+            
+          一元运算符 : 只有一个才做符的运算符 num++ / num--
+          二元运算符 : 有两个操作数的运算符 10+20 10*3 
+          三元运算符 : 有三个操作数的运算符 条件 ? 值1 : 值2
+
+          一元运算符 
+            自增(++) => num++/++num
+             -相同点 : 代码执行完 都会自增 +1
+             -不同点 : 代码没执行完就开始就开始使用了
+                      num++ : num在前 先使用 在 +1
+                      ++num : num在后 先+1 再用
+
+          逻辑运算符
+          || 或  一个为真是真
+          && 且  只有两个为真(true) 结果才为真(true)   一个为真 并且另外一个也为真 结果才是真(true)
+          ! 非  取反
+
+          && 从另外一个角度分析 (逻辑短路)
+          1 . 如果前面为false , 后面的代码就不需要看了
+          2 . 如果前面为true , 后面的代码要看的
+
+          比较运算符 > < >= <= (结果 : true/false)
+          == (相等) != (不相等) => 比较的是内容
+          === (全等) !== (不全等) 比较的是内容+类型
+
+          记忆 : 
+          = : 赋值
+          == : 相等 => 比较内容是否相等
+          === : 全等 => 比较内容+类型 事否全等
+
+          数字 与 字符串的比较
+            1 . 第一种情况 : 数字 > 数字 => 内容
+            24 > 3    t
+            2 . 第二种情况 : 字符串 > 字符串 => 比较的字符(一个一个比较)
+            '24' < '4' t  => 比较的第一个字符  2 < 4 t
+            3 . 第三种情况 : 数字 > 字符串 => 内容
+            24 > '3' t   '24' > 3 t
+          总结 : 只要涉及到`数字`的`比较` => 比较的是内容 
+                只要涉及到`字符串`的`+` => 拼接
+
+          通过颜色可以查看 数字和字符串的类型
+          蓝色 => 数字(num)
+          黑色 => 字符串(str)
+
+          转化为数字类型(数字类型 Number)  空字符串转化为数字 => 0    +null => 0  +undefined => NaN(非数字)
+          1. 构造函数 Number(值)    最后
+          2. 方法: parseInt() => (解析成一个整数 也是属于数字类型) 和 parseFloat(解析成一个浮点数 也是属于数字类型)   其次
+             补充 let width = '100px' parseInt(width) 
+          3. + / -0     优先级最高
+          
+          转化为字符串类型     0 转化为空字符串 0
+          1. 构造函数 String(值)   最后
+          2. 值.toString()   => num.toString() 其次
+          3. +''            优先级最高
+
+          转化为布尔类型 
+          1. 构造函数 Boolean(值) 
+             转化为true 的种类太多了不方便记忆
+             记忆 : 转化为false ,其他的都为true
+             -------
+             转化为false : 空值/非正常值 => false
+             0 "" false undefined null NaN(非数字)
+          2. !! 非非  
+
+          NaN
+          1. NaN : Not a Number
+          2. 这其实是一个错误的转化方法,浏览器宽容,不给报错 NaN
+          3. NaN 是一个number类型
+          4. NaN 它六亲不认 , 不等于任何值 包括他自己
+          5. isNaN(值) 一个值得内容是不是数字 (内容 '3' 3)
+          isNaN(3) t    isNaN('3') t  isNaN('ac') f
+
+流程控制=======================================>
+
+          流程控制 
+          三种结构
+          1. 顺序结构 : 从上到下依次执行
+          2. 分支结构 : 选择结构 , 根据条件不同 ,执行不同的代码
+             a. if语句
+             b. 三元表达式
+             c. switch语句
+          3. 循环结构 : 重复做一件事情
+
+          if语句 判断是否成立 
+          1. 处理一种情况
+             结构: if(条件){
+               代码1
+             }
+             执行 : 条件成立(true) 执行代码1
+          2. 合理两种情况 
+             结构: if(条件){
+               代码1
+             }else{
+               代码2
+             }
+             执行 : 条件成立(true) => 代码1
+                   条件不成立(false)/其他 => 代码2
+          3. 处理三种以上情况的
+          结构 : if..else if..else if....
+          if(条件1){
+            代码1
+          }else if(条件2){
+            代码2
+          }else if(条件3){
+            代码2
+          }....
+          else{
+            //其他代码
+          }
+          执行 : 条件1成立(true) => 代码1
+                条件2成立(true) => 代码2
+                条件3成立(true) => 代码3
+                以上都不成立 => 其他代码
+
+          三元运算符 ? : 
+          结构1 : 条件 ? 代码1 : 代码2
+          执行  : 条件成立(true) => 代码1
+                条件不成立(false) => 代码2
+
+          switch 选择
+          结构 : 
+          switch(变量){
+            case 值1 :
+              代码1;
+              break;
+            case 值2 : 
+              代码2;
+              break;
+            ...
+            default : 
+            其他代码;
+            break;
+          }
+          执行 : 变量 等于 值1 => 代码1
+                         值2 => 代码2
+          ...如果以上都不是执行 => default里的代码
+          注意 : break 有时候可以省略的
+          1. 判断值,从对应的case值开始 ,知道遇见break为止
+          2. break以后省略的可能性几乎没有
+          3. switch 判断值是按照全等标准来判断的(内容+类型 )
+
+          三种分支语句的使用场景
+          if语句 : 有`范围性`的判断 
+          三元运算符 : 是用来替代`简单的if...else`
+          switch : 判断`具体值`的 
+
+          循环语句 : 解决需要重复执行某些语句的代码
+          `重复执行一件事`
+          while
+          do...while
+          for
+
+          while语句
+          结构 : 
+          while(条件){
+            循环体 代码
+          }
+          执行 : 条件成立 => 代码
+          再次判断条件 => 条件成立 => 代码
+          再次判断条件 => 条件成立 => 代码
+          再次判断条件 => 条件成立 => 代码
+          注意点 : 一定要有个终止条件,不然的话会造成死循环
+
+          do...while
+          结构 : 
+          do{
+            循环体
+          }while(条件);
+          执行顺序 : 二话不说,先执行依次循环体;
+                  判断条件,条件成立 => 循环体
+                  判断条件,条件成立 => 循环体
+          
+          while和do...while的区别
+          次数 + 顺序
+          while 
+          次数 : 最少0次 ,最多不限 (0+)
+          顺序 : 先判断条件
+          do...while
+          次数 : 最少1次 ,最多不限
+          顺序 : 先执行一次(在判断条件)
+
+          for循环语句
+          结构 : for (0初始值,1判断条件,3自增){
+            2循环代码
+          }
+          执行顺序 : 0初始值 只会执行一次
+                    1判断条件 => 2循环体代码 => 3自增
+                    1判断条件 => 2循环体代码 => 3自增
+                    条件不成立 => 跳出for循环
+          注意 :
+          1. ()里面2个英文状态下的`;`
+          2. for(){}是while演化过来的
+
+          break 和 continue
+          1. break: 结束跳出当前`整个for循环`,括号   => 结束循环体   => 所以log在前
+          2. continue: 结束本次循环,继续下一个循环(找 i++ ) => 跳过本次循环 继续 => 所以log在后
+          3. break和continue 与 console.log()的位置
+             break 一般在 console.log()之后
+             continue 一般在 console.log()之前
+          4. break 和 continue 配合 for 使用
+            > break在switch 里面也遇到过
+
+          3种循环语句的使用场景
+          for : 知道`确定次数`的时候
+          
+          while : 不确定次数的时候
+          do...while : 不确定次数  => 不管条件成不成立 都至少要执行一次
+
+          分支语句的使用场景
+          if : 范围性的判断
+          三元 : 简单的if...else 替代
+          switch : 具体值的判断
+
+arr=======================================>
+
+          数组 : Array 是一个集合 , 里面可以放很多数据的集合
+          [] 是数组的字面量
+          数组里面用,隔开
+          数组里面的值称之为 : 元素
+          元素可以为任意值类型 : 最好一个数组里面的值是统一的类型
+          数组是有顺序的    特点=> 1.有长度length 2.有顺序
+
+          创建数组 
+          方式1 : 构造函数创建(了解)
+          a. 创建一个空数组
+          let arr = new Array() 
+          b. 创建一个有内容的数组
+          let arr = new Array( 1 , 2 , 3 )
+          c. () 里面只写一个值(数字) => 创建一个空数组长度为数字的值
+
+          方法2 : 字面量创建
+          a. 创建一个空数组
+          let arr = []
+          b. 创建一个有内容的数组
+          let arr = [ 1 , 2 ]
+          c. []留一个数字
+          []里面如果只有一个数字 , 数组的元素只要有一个 就是这个数字
+
+          数组长度与下标
+          1. 长度(数组的长度 == 数组元素的个数) => arr.length
+
+          2. 下标
+             下标的范围 :
+             开始 : 从0开始   => 最小下标
+             结束 : 到 arr.length-1 结束  => 最大下标 (比长度少1) 
+                  0 ~ arr.length-1 
+          
+          数组的取值与赋值
+          赋值
+          结构 : 数组[下标] = 新值
+          作用 : 把数组里对应下标的值 , 改为新值 
+          1 . 下标存在的去情况下 => 修改值
+            arr[arr.length-1] = '新值'
+          2 . 下标不存在的情况下 => 添加元素
+            arr[arr.length] ='新值'
+
+          取值 (下标 0 ~ arr.length-1) 
+          结构 : 数组[下标]
+          作用 : 根据小标 , 获取数组中对应的元素
+          1 . 下标存在的情况下 arr[0] ...
+          2 . 下标不存在的情况下 => undefined
+
+          下标不存在的情况下 => 赋值 => 添加元素
+
+          添加元素
+          方法1 : arr[arr.length] = 值
+          方法2 : arr.push(值) (推荐)    arr.push('zs')
+          
+          数组的遍历
+          遍历 : 一次性获取全部的数据
+          for (let i = 0 ; i <= arr.length - 1 ; i++ ){
+
+          }   i => 下标
+          
+          冒泡
+          for( let j = 0 ; j < arr.length-1 ; j++){
+            let flag = true;
+            for( let i = 0 ; i < arr.length - 1 - j ; i++){
+              if(arr[i] > arr[i + 1]){
+                flag = false;
+                let temp = arr[i];
+                arr[i] = arr[i + 1];
+                arr[i + 1] = temp;
+              }
+            }
+            console.log(arr)
+            if(flag){
+              break;
+            }
+          }
+ 
+fn=======================================>
+          函数 : 封装一段(可以重复执行的)代码    ==> 函数也是对象
+          两个函数名相同的函数 后面的会覆盖前面的函数  ==> 函数的重载
+          声明与调用
+          1. 声明 : 
+             结构 : function 函数名(){
+                   函数体  代码
+             }
+            注意点 : 函数声明了,它不会你妈执行的,需要调用
+                    函数可以多次调用
+          2. 调用
+            结构 : 函数名()
+
+
+          函数的参数
+          sum(40,50);
+          function sum(num1,num2){
+            console.log(num1 + num2)
+          }
+          形参
+          1. num1/num2 形参 形式参数 占位置
+          2. num1/num2 不确定具体的类型, 有实参来决定
+          3. 形参的命名规范 符合变量命名的规则 === 变量
+          4. 这里不能写具体的值
+          5. 形参只能在函数 内部使用(函数作用域)
+          实参
+          1. 实参 实际参数 : 他是一个具体的值(变量)
+          2. 实参可以为任意类型 
+          3. 实参 => 形参的时候 ,一一对应 的传
+          推荐个数相同
+
+          结构
+          function 函数名(形参1,形参2...) {
+          }
+          函数名(实参1,实参2,,,)
+
+          arguments : 传过来的实参的集合
+          1. argments 不是一个 真正的数组 , 伪数组 , 类对象
+          2. 如和区分真正的数组和伪数组
+             -伪数组 : 其他名字的(长度) Arguments/HtmlCollection/NodeList....  __proto__:Object
+             -真数组 : Array(长度) __proto__ : Array
+          3.伪数组 
+          -能干什么 ?  能遍历
+          -不能干什么 ? 不能使用真正数组的方法
+
+          函数参数的个数问题
+          1. 个数相同 => --对应 (常用)
+          2. 实参 < 形参 (几乎不用)
+          3. 实参 > 形参 : 接助 arguments 来获取
+
+          函数的返回值
+          以后我们不会是经常拿到`函数调用 = 函数名()`去参加运算
+          而是把调用的返回值结果,赋值 给一个变量,以后我们直接使用这个 变量去参加运算
+          有时候 我们调用一个函数 虽然函数里有一个结果 , 但是我们想要在外面调用的 地方
+          也拿到这一个值
+          1. 我们可以借助 return 把韩式里面的值 给返回出来
+          结构 : return 值(可以为任意类型)
+          2. 谁调用这个函数, 谁将得到 return 后面的值
+          3. return 其实有两个作用
+          - 中止函数 (函数内部,见到return 后面代码将不执行)
+          - 返回一个值
+          4. return 后面只能返回一个值 ,如果真想返回两个或者多个 借助 数组
+          5. 以后我们不会经常拿到`函数调用 = 函数名()`去参加运算
+          而是把调用的返回值结果,赋值 给一个变量,以后我们直接使用这个 变量去参加运算
+
+          函数的三要素 : 函数名 参数 返回值
+
+          函数也是一种类型
+          1. 函数表达式(不能预解析 报错 ==> undefined())     2.函数申明(也会预解析)
+          fn()
+          let fn = function(){}
+          2. 函数可以当做参数 来进行传递 => 延伸 => 回调函数
+          3. 函数也可以作为返回值, 进行返回出去 => 延伸 => 闭包
+
+          作用域 : 变量起作用的区域
+          1. 全局作用域 : (script以内) 函数以外的部分
+             -全局变量 : 在全局作用域内`声明`的变量
+             -全局变量在任何蒂法都可以被访问
+          2. 函数作用域 : 函数以内的部分
+             -局部作用域 : 在函数作用域内`申明`的变量
+             -局部变量 只能在函数内部使用
+
+             -隐式全局变量 : `一个变量,之前从来没有声明过,现在直接赋值`
+                           这样的一种变量就是 隐式全局变量
+                           不管你再哪里赋值
+                          - 在任何地方都能被访问
+           // var num = 11; // 全局
+     
+           // function fn() {
+           //     var num1 = 12;  // 局部
+           //     num2 = 22;   // 隐式全局
+           //     console.log(num); // 11
+           //     console.log(num1); //12
+           // }
+           // fn();
+           // console.log(num); //11
+           // console.log(num1); // 报错
+           // console.log(num2);  //22
+
+           有局部的先用局部的
+
+           预解析 目的 : 解释一下正常秩序不理解的情况
+           1. 先预解析 (变量提升)
+           2. 再一行一行的执行代码
+
+           预解析的规则
+           1 .var 声明的变量 , 声明提升 , 赋值不提升  ==> 提升到当前作用域的最顶端
+           2 .函数声明 (也会提升),整体提升 提升到作用域的最顶端
+           3 .(提升后) 多个函数重名 , 后者会覆盖前者
+           4 .(提升后) var声明和函数声明重名 , 函数声明 会覆盖var声明
+           
+          //  匿名函数 : 没有名字的函数
+          两种使用方式 :
+          1. 把匿名函数赋值给一个变量.以后想要操作这个函数,直接操作变量即可  ==>  函数表达式
+          2. 匿名函数的自调用   ==> ((){})()
+
+          场景1 : 函数表达式
+          var fn = function() {
+            console.log('test');
+          }
+          console.log(fn);
+          fn();
+          
+          场景2 : 把匿名函数作为参数 传递
+          function test( fn ) {
+            
+          // var fn = function () {
+          //              console.log('我是函数');
+            
+          //              } 
+            console.log(fn);
+            fn();
+    
+          }
+          test( function () {
+            console.log('我是函数');
+            
+          } );
+
+          场景3 : 把匿名函数作为返回值返回
+          function test() {
+    
+            return function () {
+                    console.log('我也是函数');
+                  }
+          }
+    
+          // test()();
+    
+          var res =  test();
+          console.log(res);
+          res();
+
+          ()() => 解决全局变量 污染 => 预解析问题  ===> 解决 
+          第一个() :把匿名函数 包起来,让大家知道我们是一个整体
+          第二个() :调用
+
+对象 object =====================================>
+          let obj = {
+            属性名 : 属性值,
+            键(key) : 值(value) ==> 键值对
+            fun : function(){
+              console.log('11')
+            }
+          }
+          表面上: 
+          1. obj = object
+             arr = array
+          2. {}=对象的字面量形式  []=数组的字面量形式
+          3. 键值对格式出现的
+          4. 属性与属性之间用逗号隔开
+
+          对象 : 是一个键值对集合
+          作用 : 存储数据 存储对象
+
+          创建对象的四种方式
+
+          单独创建对象   => 缺点 : 不能批量创建
+          - 字面量(常用)     {}           
+          - 系统的构造函数    new Object()
+
+          批量创建对象
+          - 工厂函数 (缺点 : 无法看清具体类型 都是Object)
+          function createObj (name,age){
+            1.创建一个空对象
+            let obj = {}
+            2.设置对象
+            obj.name = name
+            obj.age = age
+            3.把对象返回出去
+            return obj
+          }
+          使用 
+          let obj1 = createObj('zs',18)
+          let obj2 = createObj('ww',20)
+          - 自定义构造函数( 重 点 ) (可以看清 : Student Teacher Person...) 
+          function Person(name,age){
+            this.age = age
+            this.name = name
+          }
+          let obj = new Person('zs',15)
+
+          new 的作用
+          1. 创建一个空对象
+          2. this指向这个空对象
+          3. 执行构造函数 (实例化属性 属性赋值)  ===> 作用 : 实例化属性 属性赋值
+          4. 返回这个空对象
+          
+          1. 构造函数也是函数 函数名 可以为小写 但是我们推荐使用大写
+          2. 构造函数 里面都是用this.属性名 = 属性值
+          3. 构造函数 创建对象 => 需要和 new 配合使用
+
+
+          对象的取值和赋值
+          结构 : 对象.属性名 = 属性值
+          作用 : 把属性赋值给属性名上
+          1. 属性名存在的情况下 => 修改值
+          obj.name = 'lw'
+          obj.age = 100
+
+          2. 属性名 不存在的情况下 => 添加属性 (重点)
+          obj.sex = 'nan'
+          
+          // 取值 
+          结构  : 对象.属性名
+          作用 : 获取属性名对应的属性值
+          1. 属性名存在的情况下 => 直接获取属性值
+          2. 属性名 不存在的情况下 => undefined
+
+          操作属性
+          第一种 : 点语法
+          结构 : 对象.属性名
+          注意点 : 
+          1. 只要看到.后面的属性名 , 一定要去查看对象里面有没有这个名字
+          必须是 一一对应 / 一模一样
+          2.不能是字符串
+
+          第二种 :[] 语法
+          结构 : 对象['属性名字字符串'/变量]
+          注意点 : 
+          1. []里面的是属性名的字符串格式
+          2. []里面也可以是变量
+          let key = 'name'
+          obj[key] ==  obj['name']
+
+          遍历对象 
+          for(let key in obj){
+            console.log(key , obj[key])
+          }
+          注意 : 
+          for 遍历对象的时候 只能用[]语法 
+          in 判断属性是否是对象里面的属性
+          if('sex' in obj){
+            console.log('是')
+          }else{
+            console.log('不是')
+          }
+
+
+          值类型 和 引用类型
+          值类型 : 简单的数据类型 , 变量在存储的时候 存储的是值本身
+          引用类型 : 复杂数据类型 , 变量在存储的时候 存储的是地址/引用
+
+          1.内存分布图
+          值类型 num str b
+          引用类型 arr obj fun
+          2. 赋值特征
+          值类型 赋值 => 把值又给别人一份 前者互不影响
+          引用类型 赋值 => 把地址交给别人 前者有影响的
+
+          this的指向 : (函数内的this)
+          谁调用this 所在的函数 this就指向谁 
+          1. 函数模式  谁调用就指向谁  => window
+          function test(){
+            console.log(this)
+          }
+          test() // window.test()  
+          2. 方法模式  => obj
+          let obj = {
+            name : 'zs',
+            sayHi : function(){
+              console.log(this)
+            }
+          }
+          obj.sayHi()
+          3. 构造函数模式   自定义构造函数 new的作用 this指向这个对象
+          function Person(name,age){
+            this.name = name
+            this.age = age;
+            this.liaomei = function(){
+              console.log(this)
+            }
+          }
+          var p = new Person('zs',18)
+          p.liaomei();
+
+          Math本身就是一个对象,不是一个构造函数
+          1.属性 π PI
+          Math.PI
+          2.方法 : 
+           a . 最大值 Math.max() 最小值 Math.min()
+           b . 向上取整 Math.ceil()  向下取整 Math.floor() 四舍五入  Math.round()
+           c . 绝对值 Math.abs()
+           d . 次幂 Math.pow(num.power) num的power次方 
+           e . 开方根 Math.sqrt()
+          随机数  Math.random() 默认[0,1)  大于等于0,小于1
+          Math.random()*n ==> [0,n)  
+          parseInt(Math.random()*5)  取整
+          随机[0-n]之间的随机整数 parseInt(Math.random() * n+1)  
+          m-n之间   parseInt(Math.random() * n+1)+m
+
+          Date对象 日期对象 Date是一个构造函数
+          let date = new Date()
+          var date = new Date("2017-03-22");//创建一个指定时间的日期对象
+          var date = new Date("2017-03-22 00:52:34");//创建一个指定时间的日期对象
+          var date = new Date(2017, 2, 22, 0, 52, 34);
+          var date = new Date(1523199394644);//参数：毫秒值
+          1. 时间格式化 toLocaleString = 日期 + 时间
+          date.toLocaleString()   ==> 2020/7/29 下午4:33:32
+          date.toLocaleDateString ==> 2020/7/29  日期
+          date.toLocaleTimeString ==> 下午4:33:32 时间
+          2. 获取时间的具体值
+          年 date.getFullYear()
+          月 date.getMounth()+1
+          星期 date.getDay()
+          日 date.gatDate()
+          小时 date.getHours()
+          分钟 date.getMinutes()
+          秒 date.getSeconds()
+
+          时间戳
+          let date = +new Date()
+
+          数组对象操作
+
+          方法1 : join()  ==> 返回值 : 数组元素带分隔符拼接的字符串
+          结构 :  数组.join(分隔符)
+          作用 : 通过分隔符,把数组里的元素,以字符串的格式拼接起来
+          返回值 : 字符串 
+          
+          增删操作 : 
+          第一组 : push() 和 pop()
+
+          push() 添加元素   ==> 返回值 : 添加元素后新数组的长度
+          结构 : 数组.push(值)
+          作用 : 在数组的后面, 添加一个/多个元素
+          参数 : 需要参数
+          返回值 : (添加元素)返回的是添加值之后的数组的长度 
+
+          pop() 删除元素 ==> 返回值 : 是刚才删除的那个元素
+          结构 : 数组.pop()
+          作用 : 在数组的后面, 删除一个元素 
+          参数 : 不需要参数
+          返回值 : (删除元素) 返回的是刚才删除的那个元素
+
+          第二组 : unshift() 和 shift()
+
+          unshift() 添加元素 ==> 返回值 : 添加元素后新数组的长度
+          结构 : 数组.unshift(值)
+          作用 : 在数组之前, 添加一个/多个元素
+          参数 : 需要参数
+          返回值 : (添加元素)返回的是添加元素之后的新数组的长度
+
+          shift() 删除元素 ==> 返回值 : 刚刚删除的那个元素
+          结构 : 数组.shift()
+          作用 : 在数组之前, 删除一个个元素
+          参数 : 不需要参数
+          返回值 : (删除元素)返回的是刚刚删除的那个元素
+
+          总结:  
+          1. push()/pop()
+             数组的后面
+             push() 添加元素 返回数组的长度
+             pop() 删除元素 返回被删除的元素
+          2. unshift()/shift()
+             数组的前面
+             unshift() 添加元素 返回数组的长度
+             shift() 删除元素 返回被删除的长度
+
+          添加元素 => 返回的长度
+          删除元素 => 返回删除的元素
+
+          数组翻转 reverse()
+
+          排序 : sort()
+          第一种 : sort()没有参数
+          按照字符排序 (首字母 => 依次往下比)
+
+          第二种 : 数组.sort(参数)
+          arr.sort(function(a,b){
+            return a-b/b-a
+            --- return a-b  a(小) b(大) 从小到大排序
+            --- return b-a  b(大) a(小) 从大到小排序
+          })
+
+          数组拼接  把两个数组里面的元素拼接在一起形成一个新的数组
+          concat()
+          区别 :
+          concat :   [a,b,c,1,4,7]
+          push : [a,b,c,[1,4,7]]
+
+          截取 slice 有返回值 ==> 数组
+          结构1 : 数组.slice(start,end)  [start,end)
+                 从start下标开始截取,一直截取到end结束, 不包括end
+          结构2 : 数组.slice(start)
+                 从start下标开始截取,一直截取到最后
+          结构3 : 数组.slice()
+                 全部截取
+
+          删除/添加元素  splice()  ==> 清空数组 arr.splice(0,arr.length)
+          结构1 (纯删除) : 数组.splice(start,deletedCount)
+          从start下标开始,删除几个
+          arr.splice(7,1); // 删除某一个
+          console.log(arr);
+
+          结构2 (替换) : 数组.splice(start,deletedCount,item)
+          从start下标开始删除 几个,并把item添加到start位置
+          arr.splice(4,1,'马哥');
+          console.log(arr);
+        
+          结构3 (添加) : 数组.splice(start,0,item)
+          从start下标开始,删除0个,添加item
+          把item添加到start下标这个位置, 往后移
+          arr.splice(3,0,'马哥');
+          console.log(arr);
+
+          查找元素 
+          indexOf : 查找元素`第一次`在数组出现的`位置`
+          let firstIndex = arr.indexOf(7,0)
+          indexLastOf : 查找元素`最后一次`在数组出现的`位置`
+
+          数组有这个值 => 显示对应的下标
+
+          indexOf 判断值在数组值中存不存在
+          数组没有这个值 =>  -1 
+          可以根据 -1 值,判断值是否存在数组中
+          if(arr.indexOf(7) == -1){
+            console.log('不存在')
+          }else{
+            console.log('存在')
+          }
+
+          清空数组 
+          1. arr.splice()
+          2. arr.length = 0
+          3. arr = []
+
+          1. 基本包装类型 : 把简单数据类型包装成复杂数据类型,方便调用属性和方法
+          2. 简单数据类型是没有属性和方法的
+          3. 当简单数据类型调用方法的时候.底层发生了三件事
+          - 把简单类型 包裹成一个复杂类型
+          - 把复杂类型去调用方法和属性, 并且拿到结果返回
+          - 销毁刚刚创建的复杂类型
+
+          Number 对象
+          1 . toFixed() 保留小数点后几位
+          2 . toString() 转化为字符串
+          
+          Boolean 对象
+          1. toString  true.toString() ===> "true"
+          
+          String 对象
+          字符串是不可变的
+          1. 查找字符出现的位置
+          indexOf : 查找字符第一次出现在字符串中的位置
+          lastIndexOf : 查找字符最后一次出现在字符串中的位置 
+
+          2. trim() 去除字符串两端的空格
+          3. 大小写切换
+          str.toUpperCase()  大写
+          str.toLocaleLowerCase() 小写
+          4. 拼接+/str1.concat(str2)   
+
+          截取  slice == substring/substr
+          结构 : slice(start,end) 
+          从start下标开始截取 一直截取到end下标 不包括end   
+          结构 : substr(start,count)  
+          从start下标开始 截取几个
+
+          字符串切割 split  str=>arr  和  join相反  arr=>str
+          结构 : str.split(分隔符)
+          作用 : 根据分隔符, 把祖父穿切割成多份 , 放到一个数组里
+          返回值 : 数组
+
+          替换 replace(old,new)
+          把 a => z
+          str.replace('a','z')
+          把 所有的 a => z
+          str.replace(/a/g,'z')
+
+          访问 : 一个个的获取 
+          str[0]  str.charAt(2)
+
+基础方法 =======================================
+          Number对象   
+            toFixed() 保留小数点后几位小数
+            toString() 转化为字符串
+          Boolean对象
+            toString() 转化为字符串
+          String对象 (字符串数组)
+            index/last/Of: 查找字符第一次/最后一次出现的位置
+            trim() 去除字符串两端空格
+            str.toLocalUpperCase() 大写
+            str.toLocalLowerCase() 小写
+            + / str1.concat(str2) 拼接
+            slice(开始,结束)   截取  ==substring/substr(开始,几个)
+            split(分隔符) 字符串切割 str = arr 和 join 相反  arr => str
+            replace(old,new) 替换 替换全部使用正则  / /g
+          Array对象
+            join(分隔符) 通过分隔符 把数组里面的 元素以字符串的格式拼接起来 arr = str
+            push(值) 在数组的最后添加元素 => 返回值 添加完数组的长度
+            pop() 在数组的最后删除元素  => 返回值 删除的元素
+            unshift(值) 在数组的前面添加元素 => 返回值 添加完数组的长度
+            shift() 在数组的前面删除元素  => 返回值 删除的元素
+            sort()  排序 没参数按照首字母一次往下排 sort( function (a,b) { return a - b/b - a }) 
+            concat() 拼接 将两个数组里面的元素拼接一起生成一个新的数组
+            slice() 截取 1 . 数组.slice(s,e) [s,e) 2.数组.slice(s) 从s开始到最后 3.数组.slice() 全部
+            splice() 删除/添加元素  1. 删除 数组.splice(开始,删除的个数) 
+                                  2.替换 数组.splice(start,deltedCount,item)
+                                    从start下标开始删除 几个,并把item添加到start位置
+                                  3.添加 数组.splice(start,0,item)
+            indexOf 查找元素  / 判断值在数组中存不存在  不存在  -1 
+            清空数组的方法 arr.splice() arr.length = 0 arr =[]
+            
+                                
+
+
+
+
+
+
+
+
+          
+          
+
+
+
+            
+
+
+
+
+
+
+
+ 
+          
+
+
+
+
+
+
+
+
+          
+          
+                  
+
+
+        */
+    </script>
+  </body>
+</html>

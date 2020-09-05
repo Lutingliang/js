@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+      }
+
+      /* .wrap {
+        width: 500px;
+        margin: 100px auto 0;
+      }
+
+      table {
+        border-collapse: collapse;
+        border-spacing: 0;
+        border: 1px solid #c0c0c0;
+        width: 500px;
+      }
+
+      th,
+      td {
+        border: 1px solid #d0d0d0;
+        color: #404060;
+        padding: 10px;
+      }
+
+      th {
+        background-color: #09c;
+        font: bold 16px "微软雅黑";
+        color: #fff;
+      }
+
+      td {
+        font: 14px "微软雅黑";
+      }
+
+      tbody tr {
+        background-color: #f0f0f0;
+      } */
+    </style>
+  </head>
+  <body>
+    <button>点击按钮发送短信</button>
+    <!-- <table>
+      <thead>
+        <tr>
+          <th>序号</th>
+          <th>姓名</th>
+          <th>课程</th>
+          <th>成绩</th>
+        </tr>
+      </thead>
+      <tbody id="j_tb">
+        <tr>
+          <td>
+            1
+          </td>
+          <td>柳岩</td>
+          <td>语文</td>
+          <td>100</td>
+        </tr>
+        <tr>
+          <td>
+            2
+          </td>
+          <td>苍老师</td>
+          <td>日语</td>
+          <td>100</td>
+        </tr>
+        <tr>
+          <td>
+            3
+          </td>
+          <td>凤姐</td>
+          <td>营销学</td>
+          <td>100</td>
+        </tr>
+        <tr>
+          <td>
+            4
+          </td>
+          <td>张飞</td>
+          <td>数学</td>
+          <td>10</td>
+        </tr>
+        <tr>
+          <td>
+            5
+          </td>
+          <td>小沈阳</td>
+          <td>英语</td>
+          <td>100</td>
+        </tr>
+        <tr>
+          <td>
+            6
+          </td>
+          <td>马户</td>
+          <td>体育</td>
+          <td>100</td>
+        </tr>
+      </tbody>
+    </table> -->
+    <!-- <button id="btn">关灯</button> -->
+    <script>
+      // let btn = document.querySelector("#btn");
+      // btn.onclick = function () {
+      //   if (btn.innerText == "关灯") {
+      //     this.innerText = "开灯";
+      //     document.body.style.backgroundColor = "#000";
+      //   } else if ((btn.innerText = "开灯")) {
+      //     this.innerText = "关灯";
+      //     document.body.style.backgroundColor = "#fff";
+      //   }
+      // };
+      // let trs = document.querySelectorAll("#j_tb tr");
+      // let oldColor;
+      // for (let i = 0; i < trs.length; i++) {
+      //   if (i % 2 == 0) {
+      //     trs[i].style.backgroundColor = "aqua";
+      //   } else {
+      //     trs[i].style.backgroundColor = "pink";
+      //   }
+      //   trs[i].onmouseover = function () {
+      //     oldColor = this.style.backgroundColor;
+      //     this.style.backgroundColor = "green";
+      //   };
+      //   trs[i].onmouseout = function () {
+      //     this.style.backgroundColor = oldColor;
+      //   };
+      // }
+      let btn = document.querySelector("button");
+      btn.onclick = function () {
+        this.disabled = true;
+        let that = this;
+        let count = 5;
+        let timeId = setInterval(() => {
+          count--;
+          that.innerText = count + "秒后发送";
+          if (count === 0) {
+            that.disabled = false;
+            that.innerText = "点击按钮发送短信";
+            clearInterval(timeId);
+          }
+        }, 1000);
+      };
+    </script>
+  </body>
+</html>

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        ul,ol,li{
+            list-style: none;
+        }
+        #box{
+            width: 790px;
+            height: 340px;
+            margin: 100px auto;
+            position: relative;
+            overflow: hidden;
+        }
+        #box ul{
+            /*保证ul足够宽，能够放下假图片*/
+            width: 1000%;
+            position: absolute;
+        }
+        #box ul li{
+            float: left;
+        }
+        #box ol{
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(255,255,255,.5);
+            border-radius: 20px;
+            padding: 0 5px;
+        }
+        #box ol li{
+            width: 12px;
+            height: 12px;
+            background-color: #fff;
+            border-radius: 50%;
+            float: left;
+            margin: 5px;
+            cursor: pointer;
+        }
+        #box ol li.current{
+            background-color: red;
+        }
+
+        /*左右箭头*/
+        #box .arrow{
+            display: none;
+        }
+        #box:hover .arrow{
+            display: block;
+        }
+
+        #box .arrow span{
+            width: 30px;
+            height: 60px;
+            background-color: rgba(0,0,0,.5);
+            position: absolute;
+            font-size: 24px;
+            z-index: 999;
+            top: 50%;
+            transform: translateY(-50%);
+            text-align: center;
+            line-height: 60px;
+            color: #fff;
+            font-family: "宋体";
+        }
+        #box .arrow span.prev{
+            left: 0;
+        }
+        #box .arrow span.next{
+            right: 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="box">
+        <!-- 图片 -->
+        <ul>
+            <li><img src="images/1.jpg" alt=""></li>
+            <li><img src="images/2.jpg" alt=""></li>
+            <li><img src="images/3.jpg" alt=""></li>
+            <li><img src="images/4.jpg" alt=""></li>
+            <li><img src="images/5.jpg" alt=""></li>
+            <li><img src="images/6.jpg" alt=""></li>
+            <li><img src="images/7.jpg" alt=""></li>
+            <li><img src="images/8.jpg" alt=""></li>
+            <li><img src="images/1.jpg" alt=""></li>
+        </ul>
+
+        <!-- 小圆点 -->
+        <ol>
+            <li class="current"></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ol>
+
+        <!-- 左右箭头 -->
+        <div class="arrow">
+            <span class="prev">&lt;</span>
+            <span class="next">&gt;</span>
+        </div>
+    </div>
+
+    <script src="animate.js"></script>
+    <script>
+        // 轮播图效果展示： 移动的是ul的left
+
+        // 需求： 点击左右箭头，切换ul,实现无缝切换效果
+
+        // 思路：
+        //  1. 找对象
+        //  2. 给右箭头注册click
+        //  3. 先定义一个变量存储下标  index = 0; // 默认展示第一张图片，第一张图片的下标就是0 
+        //  4. 点击的时候，index++， 修改ul的left = - index * box.offsetWidth
+        //  5. 限制index 的范围， 保证切换到最后一张的时候，点击右箭头就没有反应了
+
+
+        // 无缝的原理：
+        //  1. 往ul中添加一张假图片（第一张图片）  -- ul的width样式记得修改
+        //  2. 当我们点击到了最后一张图片（显示的假图片），点击过后需要显示第二张
+        //  3. 首先让ul瞬间回到left 为0的位置（显示第一张图片）
+        //  4. index++，显示第二张图片（第二张图片的下标是1）
+
+
+        var index = 0; // 用来表示当前展示的是一张图片的下标
+
+        // 1.
+        var nextBtn = document.querySelector("#box .arrow .next");
+        var prevBtn = document.querySelector("#box .arrow .prev");
+        var ul = document.querySelector("#box ul");
+        var imgs = ul.children;
+        var box = document.querySelector("#box");
+        var points = document.querySelectorAll("#box ol li");
+
+
+        // 2.
+        nextBtn.onclick = function () {
+            // 5.
+            if(index >= imgs.length - 1){
+                // 点击的时候，现在展示的就是最后一张了，此时展示的是那张假图片
+                // 去展示第一张
+                ul.style.left = 0;  // 瞬间回到第一张图片
+                index = 0;          // 下标同步为第一张图片的下标
+            }
+
+            // 4.
+            index++;
+            animate(ul, -index * box.offsetWidth, 80);
+
+
+            // 排他小圆点
+            //  在右箭头的点击事件中，需要考虑展示假图片的时候， index =8 
+            //  最后一个小圆点的下标是7
+            //  需要做判断，如果现在展示的是假图片，index = 8，让第一个小圆点高亮
+            // 
+            // 1. 把所有的小圆点的current类名去掉
+            // 2. 把对应下标（index）的小圆点加上current
+
+            // 1.
+            for (var i = 0; i < points.length; i++) {
+                points[i].className = "";
+            }
+            // 2.
+            if(index >= imgs.length - 1){
+                // 说明展示的是假图片，看到的是第一张，所以让第一个小圆点高亮
+                 points[0].className = "current";
+            }else{
+                points[index].className = "current";
+            }
+        }
+
+        // 左箭头的点击事件  index--
+        prevBtn.onclick = function(){
+            if(index <= 0){
+                // 点击的时候，展示的就是第一张图片(真的第一张图片)
+                
+                // 瞬间回到假图片的位置 = -假图片的下标* box.offsetWidth
+                // 修改index = 为假图片的下标
+
+                // 使用style 去设置left 单位别落下
+                ul.style.left = -(imgs.length - 1) * box.offsetWidth + "px";
+                index = imgs.length - 1;
+            }
+
+            index--;
+            animate(ul, -index * box.offsetWidth, 80);
+
+
+            // 排他小圆点
+            // 1. 把所有的小圆点的current类名去掉
+            // 2. 把对应下标（index）的小圆点加上current
+
+            // 1.
+            for (var i = 0; i < points.length; i++) {
+                points[i].className = "";
+            }
+            // 2.
+            points[index].className = "current";
+        }
+    </script>
+
+</body>
+
+</html>

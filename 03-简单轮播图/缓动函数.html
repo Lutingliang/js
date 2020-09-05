@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      div {
+        width: 100px;
+        height: 100px;
+        background-color: #f99;
+        position: absolute;
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <button>去400</button>
+    <br />
+    <div></div>
+    <script>
+      let btn = document.querySelector("button");
+      let div = document.querySelector("div");
+      btn.onclick = () => {
+        let timerId = setInterval(() => {
+          let current = div.offsetLeft;
+          let target = 400;
+          let step = (target - current) / 10;
+          step = step > 0 ? Math.ceil(step) : Math.floor(step);
+          current += step;
+          div.style.left = current + "px";
+          if (current == target) {
+            clearInterval(timerId);
+          }
+        }, 30);
+      };
+    </script>
+  </body>
+</html>

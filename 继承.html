@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      //实现继承的方式
+      // 1. 混入式继承  让一个对象拷贝另一个对象的成员
+      // 2. 原型链继承  原型链替换
+      //    混入式 + 原型链   混入式继承给原型添加  让原型调用extend 方法 ==> 给原型添加的成员
+      // 3. 经典继承
+
+      //   1. 混入式继承 : 让一个对象拷贝另一个对象的所有成员
+      //   let lw = {
+      //     skill: "翻墙",
+      //     handsome: "very",
+      //     liaomei: "good",
+      //   };
+      //   let tangge = {
+      //     height: 100,
+      //     voice: "111",
+      //   };
+      //   let xmg = {
+      //     name: "xmg",
+      //     face: "2222",
+      //   };
+      //   Object.prototype.gender = "male";
+      //   //   for (let k in lw) {
+      //   //     xmg[k] = lw[k];
+      //   //   }
+      //   //   封装 :
+      //   // extend 拓展
+      //   xmg.extend = function (obj) {
+      //     for (let k in obj) {
+      //       // 只需要遍历obj 对象自身的属性
+      //       if (obj.hasOwnProperty(k)) {
+      //         this[k] = obj[k];
+      //       }
+      //     }
+      //   };
+      //   xmg.extend(lw);
+      //   xmg.extend(tangge);
+
+      //   console.log(xmg);
+      //   注意点:  混入式继承 : 是把对象的成员拷贝一份添加到了xmg对象上
+
+      //   2. 原型链继承
+      //   通过 构造函数 创建出来的 实例对象 可以直接继承自原型链上的所有成员
+      //   function Person() {}
+
+      //   通过给原型对象添加成员 可以让实例对象继承到
+      //   这种方法写起来比较麻烦
+      //   Person.prototype.color = "lime";
+      //   Person.prototype.render = function () {
+      //     console.log(1);
+      //   };
+
+      //   原型替换
+      //   会丢失 constructor属性 必须要手动添加constructor
+      //   Person.prototype = {
+      //     constructor: Person,
+      //     color: "lime",
+      //     render: function () {
+      //       console.log(1);
+      //     },
+      //     move: function () {},
+      //   };
+
+      // 原型替换前的p的原型链：
+      //  p ==> Person.prototype（{constructor: Person}）==> Object.prototype ==> null;
+
+      // 原型替换后的p的原型链：
+      //  p ==> Person.prototype（新对象：{}）==> Object.prototype ==> null;
+
+      //   let p = new Person();
+      //   console.log(p);
+      //   console.log(p.color);
+      //   p.render();
+
+      //   小结 :
+      //    原型链继承 :
+      //  1.直接给原型添加成员, 缺点的成员比较多 麻烦
+      //  2.原型替换, 缺点 : 丢失constructor属性 所以一定要手动添加
+
+      //  混入式 + 原型链继承
+
+      // function Person() {}
+      // let lw = {
+      //   skill: "翻墙",
+      //   handsome: "very",
+      //   liaomei: "good",
+      // };
+      // let tangge = {
+      //   height: 100,
+      //   voice: "111",
+      // };
+      // let p = new Person();
+
+      // 给原型添加extend 方法 ---混入式继承
+      // Person.prototype.extend = function (obj) {
+      //   for (k in obj) {
+      //     if (obj.hasOwnProperty(k)) {
+      //       this[k] = obj[k];
+      //     }
+      //   }
+      // };
+      // 把对象的成员给添加了 Person.prototype 原型中了 实例对象就可以访问原型中所有的成员
+      // Person.prototype.extend(lw);
+      // Person.prototype.extend(tangge);
+
+      // 经典继承   Object.create()
+      // 语法 :  let newObj = Object.create(obj)
+      // 作用 :  该方法可以创建并返回一个空对象 空对象的原型为该方法的参数obj
+      let o = {
+        house: "海景房",
+        money: 10000000000,
+      };
+
+      let o2 = Object.create(o);
+      console.log(o2);
+      console.log(o2.__proto__ == o);
+      console.log(o2.house);
+    </script>
+  </body>
+</html>

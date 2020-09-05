@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    用户名 :
+    <input type="text" id="txtName" />
+    <span></span><br />
+    密码:
+    <input type="password" id="txtPwd" />
+    <span></span><br />
+    <script>
+      let txtName = document.querySelector("#txtName");
+      //   let passPwd = document.querySelector("#txtPwd");
+      console.log(txtName);
+      txtName.onkeyup = function () {
+        let val = this.value;
+        if (val.length < 2 || val.length > 6) {
+          this.nextElementSibling.innerText = "用户名用户名必须是2-6位之间";
+          this.nextElementSibling.style.color = "red";
+        } else {
+          this.nextElementSibling.innerText = "正确";
+          this.nextElementSibling.style.color = "green";
+        }
+      };
+    </script>
+  </body>
+</html>

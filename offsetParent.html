@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      .father {
+        width: 400px;
+        height: 400px;
+        background-color: #f99;
+        margin: 100px;
+        /*son 的offsetParent 是father，加上定位即可*/
+        position: relative;
+      }
+      .son {
+        width: 100px;
+        height: 100px;
+        position: relative;
+        left: 50px;
+        background-color: #ccc;
+        margin-left: 50px;
+        top: 80px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="father">
+      <div class="son">
+        <!-- <div class="sun">
+          sun
+        </div> -->
+      </div>
+    </div>
+    <script>
+      //   let sun = document.querySelector(".sun");
+      //   console.log(sun.parentNode);
+      //   console.log(sun.offsetParent);
+      let son = document.querySelector(".son");
+      console.log(son.offsetLeft);
+      console.log(son.offsetTop);
+    </script>
+  </body>
+</html>

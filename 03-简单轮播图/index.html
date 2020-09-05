@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    ul,
+    ol,
+    li {
+      list-style: none;
+    }
+    #box {
+      width: 790px;
+      height: 340px;
+      margin: 100px auto;
+      position: relative;
+      overflow: hidden;
+    }
+    #box ul {
+      width: 1000%;
+      position: absolute;
+    }
+    #box ul li {
+      float: left;
+    }
+    #box ol {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: rgba(255, 255, 255, 0.5);
+      border-radius: 20px;
+      padding: 0 5px;
+    }
+    #box ol li {
+      width: 12px;
+      height: 12px;
+      background-color: #fff;
+      border-radius: 50%;
+      float: left;
+      margin: 5px;
+      cursor: pointer;
+    }
+    #box ol li.current {
+      background-color: red;
+    }
+    #box .arrow span {
+      width: 30px;
+      height: 60px;
+      background-color: rgba(0, 0, 0, 0.5);
+      position: absolute;
+      font-size: 24px;
+      z-index: 999;
+      top: 50%;
+      transform: translateY(-50%);
+      text-align: center;
+      line-height: 60px;
+      color: #fff;
+      font-family: "宋体";
+    }
+    #box .arrow span.prev {
+      left: 0;
+    }
+    #box .arrow span.next {
+      right: 0;
+    }
+  </style>
+  <body>
+    <div id="box">
+      <!-- 图片 -->
+      <ul>
+        <li><img src="images/1.jpg" alt="" /></li>
+        <li><img src="images/2.jpg" alt="" /></li>
+        <li><img src="images/3.jpg" alt="" /></li>
+        <li><img src="images/4.jpg" alt="" /></li>
+        <li><img src="images/5.jpg" alt="" /></li>
+        <li><img src="images/6.jpg" alt="" /></li>
+        <li><img src="images/7.jpg" alt="" /></li>
+        <li><img src="images/8.jpg" alt="" /></li>
+      </ul>
+
+      <!-- 小圆点 -->
+      <ol>
+        <!-- <li class="current"></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li> -->
+      </ol>
+      <!-- 左右箭头 -->
+      <div class="arrow">
+        <span class="prev">&lt;</span>
+        <span class="next">&gt;</span>
+      </div>
+    </div>
+    <script src="animate.js"></script>
+    <script>
+      let box = document.querySelector("#box");
+      // let points = document.querySelectorAll("#box ol li");
+      let ul = document.querySelector("#box ul");
+      let imgs = ul.children;
+      let nextBtn = document.querySelector(".arrow .next");
+      let prevBtn = document.querySelector(".arrow .prev");
+      let ol = document.querySelector("ol");
+      let points = ol.children;
+      let index = 0;
+
+      // 动态添加小原点
+      for (let i = 0; i < imgs.length; i++) {
+        let li = document.createElement("li");
+        ol.appendChild(li);
+        if (i == 0) {
+          li.className = "current";
+        }
+      }
+      //添加假图片
+      ul.appendChild(ul.firstElementChild.cloneNode(true));
+
+      nextBtn.onclick = function () {
+        if (index >= imgs.length - 1) {
+          ul.style.left = 0;
+          index = 0;
+        }
+        index++;
+        animate2(ul, -index * box.offsetWidth);
+        animate2(ul, -index * box.offsetWidth);
+        for (let i = 0; i < points.length; i++) {
+          points[i].className = "";
+        }
+        if (index >= imgs.length - 1) {
+          points[0].className = "current";
+        } else {
+          points[index].className = "current";
+        }
+      };
+
+      prevBtn.onclick = function () {
+        if (index <= 0) {
+          ul.style.left = -(imgs.length - 1) * box.offsetWidth + "px";
+          index = imgs.length - 1;
+        }
+        index--;
+        animate2(ul, -index * box.offsetWidth);
+        for (let i = 0; i < points.length; i++) {
+          points[i].className = "";
+        }
+        points[index].className = "current";
+      };
+
+      let timerId = setInterval(() => {
+        nextBtn.onclick();
+      }, 1000);
+
+      box.onmouseover = () => {
+        clearInterval(timerId);
+      };
+
+      box.onmouseout = () => {
+        timerId = setInterval(() => {
+          nextBtn.onclick();
+        }, 1000);
+      };
+      // for (let i = 0; i < imgs.length; i++) {
+      //   let li = document.createElement("li");
+      //   ol.appendChild(li);
+      //   if (i == 0) {
+      //     li.className = "current";
+      //   }
+      // }
+      // ul.appendChild(ul.firstElementChild.cloneNode(true));
+
+      // nextBtn.onclick = function () {
+      //   if (index >= imgs.length - 1) {
+      //     ul.style.left = 0;
+      //     index = 0;
+      //   }
+      //   index++;
+      //   // animate(ul, -index * box.offsetWidth, 80);
+      //   animate2(ul, -index * box.offsetWidth);
+      //   for (let i = 0; i < points.length; i++) {
+      //     points[i].className = "";
+      //   }
+      //   if (index >= imgs.length - 1) {
+      //     points[0].className = "current";
+      //   } else {
+      //     points[index].className = "current";
+      //   }
+      // };
+      // prevBtn.onclick = function () {
+      //   if (index <= 0) {
+      //     ul.style.left = -(imgs.length - 1) * box.offsetWidth + "px";
+      //     index = imgs.length - 1;
+      //   }
+      //   index--;
+      //   // animate(ul, -index * box.offsetWidth, 80);
+      //   animate2(ul, -index * box.offsetWidth);
+      //   for (let i = 0; i < points.length; i++) {
+      //     points[i].className = "";
+      //   }
+      //   points[index].className = "current";
+      // };
+      // for (let i = 0; i < points.length; i++) {
+      //   points[i].index = i;
+      //   points[i].onclick = function () {
+      //     if (index >= imgs.length - 1) {
+      //       ul.style.left = 0;
+      //       index = 0;
+      //     }
+      //     let idx = this.index;
+      //     // animate(ul, -idx * box.offsetWidth, 80);
+      //     animate2(ul, -idx * box.offsetWidth);
+      //     index = this.index;
+      //     for (let i = 0; i < points.length; i++) {
+      //       points[i].className = "";
+      //     }
+      //     points[i].className = "current";
+      //   };
+      // }
+      // let timerId = setInterval(() => {
+      //   nextBtn.onclick();
+      // }, 1000);
+      // box.onmouseover = function () {
+      //   clearInterval(timerId);
+      // };
+      // box.onmouseout = function () {
+      //   timerId = setInterval(() => {
+      //     nextBtn.onclick();
+      //   }, 1000);
+      // };
+
+      // for (let i = 0; i < points.length; i++) {
+      //   points[i].index = i;
+      //   points[i].onclick = function () {
+      //     //   console.log(1);
+      //     let idx = this.index;
+      //     animate(ul, -idx * box.offsetWidth, 80);
+      //     for (let i = 0; i < points.length; i++) {
+      //       points[i].className = "";
+      //     }
+      //     this.className = "current";
+      //   };
+      // }
+      // let index = 0;
+      // next.onclick = function () {
+      //   if (index >= imgs.length - 1) {
+      //     ul.style.left = 0;
+      //     index = 0;
+      //   }
+      //   index++;
+      //   animate(ul, -index * box.offsetWidth, 80);
+      //   for (let i = 0; i < points.length; i++) {
+      //     points[i].className = "";
+      //   }
+      //   if (index >= imgs.length - 1) {
+      //     console.log(1);
+      //     points[0].className = "current";
+      //   } else {
+      //     points[index].className = "current";
+      //   }
+      // };
+      // prev.onclick = function () {
+      //   if (index <= 0) {
+      //     ul.style.left = -(imgs.length - 1) * box.offsetWidth + "px";
+      //     index = imgs.length - 1;
+      //   }
+      //   index--;
+      //   animate(ul, -index * box.offsetWidth, 80);
+      //   for (let i = 0; i < points.length; i++) {
+      //     points[i].className = "";
+      //   }
+      //   points[index].className = "current";
+      // };
+    </script>
+  </body>
+</html>

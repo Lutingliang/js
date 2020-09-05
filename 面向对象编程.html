@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      div,
+      p {
+        height: 100px;
+        background-color: #f99;
+        margin: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div></div>
+    <div></div>
+    <div></div>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <script>
+      //   let div = document.querySelectorAll("div");
+      //   let p = document.querySelectorAll("p");
+      //   for (let i = 0; i < div.length; i++) {
+      //     div[i].style.border = "5px solid #ccc";
+      //   }
+      //   for (let i = 0; i < p.length; i++) {
+      //     p[i].style.border = "5px solid #ccc";
+      //   }
+      //   使用函数上面的代码
+      //   获取元素
+      //   function getEle(ele) {
+      //     return document.querySelectorAll(ele);
+      //   }
+      //   设置边框
+      //   function setBorder(ele) {
+      //     for (let i = 0; i < ele.length; i++) {
+      //       ele[i].style.border = "5px solid #f99";
+      //     }
+      //   }
+      //   上面造成全局污染
+
+      // 面向对象编程
+      let tools = {
+        getEle: function (ele) {
+          return document.querySelectorAll(ele);
+        },
+        setBorder: function (ele) {
+          for (let i = 0; i < ele.length; i++) {
+            ele[i].style.border = "5px solid #ccc";
+          }
+        },
+      };
+      tools.setBorder(tools.getEle("div"));
+      tools.setBorder(tools.getEle("p"));
+    </script>
+  </body>
+</html>
