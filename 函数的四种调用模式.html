@@ -45,10 +45,35 @@
 
       //   4.上下文模式  -- 方法借用模式
       //  call apply bind
+      // 任何函数度可以调用这个三个方法
 
       // call
       // 1. call能够调用函数
-      // function fn()
+      // function fn() {
+      //   console.log(1);
+      // }
+      // fn();
+      // fn.call();
+
+      // 2. call可以改变函数内的this的指向
+      // function fn() {
+      //   console.log(this);
+      // }
+      // fn.call({ name: "zs" });
+
+      // 3. call的参数是若干个 除了第一个参数外 其他的参数都是作为函数的实参
+      // function fn(n1, n2) {
+      //   console.log(this);
+      //   console.log(n1 + n2);
+      // }
+      // fn.call({ name: "zs" }, 10, 20);
+
+      // 4.如果call在调用的时候,没有传递任何参数 , 或者就传递嗯呢null/undefined name函数内的this的指向为window的(了解)
+      // function fn() {
+      //   console.log(this);
+      // }
+      // fn.call(undefined);
+      // fn.call(null);
     </script>
   </body>
 </html>
