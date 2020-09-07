@@ -18,6 +18,19 @@
       // 1. arguments
       // 2. document.getELementsByTagName document.querySelectorAll
       // 3. jQuery
+
+      var obj = {
+        0: "玮玮",
+        1: "大丽",
+        2: "强哥",
+        3: "棠哥",
+        length: 4,
+      };
+      Array.prototype.push.call(obj, "xmg");
+      //   let str = Array.prototype.join.call(obj, "-");
+      //   console.log(str);
+      let arr = Array.prototype.slice.call(obj);
+      console.log(arr);
     </script>
   </body>
 </html>
