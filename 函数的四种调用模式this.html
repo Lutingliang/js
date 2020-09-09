@@ -78,6 +78,83 @@
       // }
       // fn.call(undefined);
       // fn.call(null);
+
+      // apply  apply和call方法一样 区别在于传参
+      // 语法 : fn.apply(thisArg,实参列表)
+      //  参数:
+      // thisArg ==> 修改fn函数内的this的指向
+      // 实参列表 ==> 是一个数组或者是伪数组
+
+      // var tangge = {
+      //   handsome: "very",
+      //   money: 1000000,
+      //   car: "劳斯莱斯",
+      //   liaomei: function () {
+      //     console.log("嘿, 妹子, 哥有" + this.car + "， 哥送你回家。");
+      //   },
+      // };
+
+      // var xmg = {
+      //   name: "小马哥",
+      //   car: "mobile",
+      // };
+
+      // tangge.liaomei.apply(xmg);
+      // tangge.liaomei.call(xmg);
+
+      // 参数的区别  apply的平铺性 : 会去除第二个参数的每一项 作为函数的实参
+      // function fn(n1, n2) {
+      //   console.log(this);
+      //   console.log(n1 + n2);
+      // }
+      // fn.call([10, 20, 30], 10, 20);
+      // fn.apply([10, 20, 30], [10, 20]);
+      /**
+      小结 :
+      1.apply个call的作用是相同的
+      2.apply的第二个参数是个数组或者是伪数组
+      3.apply的平铺性 : 将第二个参数的每一项逐一的取出来 作为fn 的实参
+
+      call和apply的使用场景
+      1.如果参数比较少的情况下 使用call
+      2.如果参数已经存放在数组中 使用apply
+      */
+
+      // function youqin() {
+      //   console.log(arguments);
+      //   let arg = arguments;
+      //   function fn() {
+      //     console.log(arguments);
+      //     console.log(
+      //       "伟伟友情提示:" + Array.prototype.join.call(arguments[0], ",")
+      //     );
+      //   }
+      //   fn(arg);
+      // }
+      // youqin(1, 2, 3);
+
+      // bind方法
+      //  语法: bind方法会创建并返回一个新的函数 新函数内的this指向被固定成了bind的参数thisArg
+      //  bind方法返回的函数和fn 是一模一样的
+      // bind 和 apply call 之间的区别
+      // call,apply度可以调用函数
+      // bind不会调用函数的 会创建并返回一个新的函数
+      // function fn() {
+      //   console.log(this);
+      // }
+      // var fn2 = fn.bind({ name: "lw" });
+      // console.log(fn2());
+      // fn2 和 fn长的一样 但是是两个函数
+      // 虽然fn2 是函数调用模式 但是fn2是bind创建出来的 里面的this被固定了
+      // 固定的理解 : 就是无论fn2是何种调用模式this 就已经固定了 固定了bind的thisArg参数
+
+      // 小结 :
+      // 1.bind 不会调用函数
+      // 2.创建并返回一个新的函数
+      //  2.1 新函数的和fn 长的一样
+      // 2.2 新函数的this指向被固定了(无论函数是何种调用模式 this都是不变的 固定指向了bind的thisArg参数)
+
+      // 用法 : 是解决 let that = this的方法之一
     </script>
   </body>
 </html>

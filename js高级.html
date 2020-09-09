@@ -283,14 +283,28 @@
 
       eval('alert(1)')
       eval 可以执行字符串代码
+
+      函数也是对象
+      function fn(){}
+      内部  fn 是通过 function 创建出来的 
+      let fn = new Function() 任何函数其实内部都是 通过 function创建的 任何函数都是Function的实例对象
+      原型三角关系:
+        实例对象 : fn
+        构造函数 : Function
+        实例对象 : Function.prototype
+      实例对象 fn(函数) 的原型链
+      fn ==> Function.prototype ==> Object.prototype ==> null
+
+      小结 : 
+      1 . 任何函数都是Function 创建出来的
+      2 . 函数的原型链有Oject.protype
+      3 . 一个函数可以访问那些成员 取决于函数的原型链
+
       
       
 
 
-      
-
-      
-
+  
         */
     </script>
   </body>
