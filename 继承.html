@@ -11,7 +11,8 @@
       // 1. 混入式继承  让一个对象拷贝另一个对象的成员
       // 2. 原型链继承  原型链替换
       //    混入式 + 原型链   混入式继承给原型添加  让原型调用extend 方法 ==> 给原型添加的成员
-      // 3. 经典继承
+      // 3. 经典继承  let newObj = Object.create(obj)
+      // 4. 组合继承 Person.call(this,name) 借用了构造函数Person的方法
 
       //   1. 混入式继承 : 让一个对象拷贝另一个对象的所有成员
       //   let lw = {
@@ -114,15 +115,28 @@
       // 经典继承   Object.create()
       // 语法 :  let newObj = Object.create(obj)
       // 作用 :  该方法可以创建并返回一个空对象 空对象的原型为该方法的参数obj
-      let o = {
-        house: "海景房",
-        money: 10000000000,
-      };
+      // let o = {
+      //   house: "海景房",
+      //   money: 10000000000,
+      // };
 
-      let o2 = Object.create(o);
-      console.log(o2);
-      console.log(o2.__proto__ == o);
-      console.log(o2.house);
+      // let o2 = Object.create(o);
+      // console.log(o2);
+      // console.log(o2.__proto__ == o);
+      // console.log(o2.house);
+
+      // 借用构造函数继承
+      // function Person(name, age, gender) {
+      //   this.name = name;
+      //   this.age = age;
+      //   this.gender = gender;
+      // }
+      // function Chinese(name, age, gender, skin) {
+      //   Person.call(this, name, age, gender);
+      //   this.skin = skin;
+      // }
+      // let xm = new Chinese("xm", 20, "male", "白");
+      // console.log(xm);
     </script>
   </body>
 </html>
