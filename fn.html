@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /**
+        函数是一等公民
+       1. typeof 检测的数据类型的 只能检测简单数据类型 对于复杂的数据类型 都是返回object
+       例外 : typeof 检测函数的类型 返回function
+       2. Function.prototype 原型类型是个函数
+
+
+       成员 :
+        1.call apply bind 都是Function.prototype 原型上的成员 所以任何函数度可以访问这三个方法
+        2.arguments 属性 ,原型上的属性
+        3.caller : 获取当前函数是在哪个函数内部调用的
+        4.length : 获取函数的形参的个数
+        6.name : 获取当前函数的函数名 ,返回的结果是个字符串
+        7.toString: 得到当前函数的字符串格式
+
+
+
+
+      */
+      //   console.log(typeof []);
+      //   console.log(typeof new Date());
+      //   console.log(typeof function fn() {});
+      //   console.dir(Function.prototype);
+      //   function fn() {
+      // arguments 是内置对象
+      //   console.log(arguments);
+      // 两个argumnets 都是同一个在作用 , 但是获取的方法不同  下面这种要被费除掉
+      // console.log(fn.arguments);
+      //   }
+      //   fn(10, 20, 30);
+      //   function fn2() {
+      //     function fn3() {
+      //       console.log(fn3.caller);
+      //     }
+      //     fn3();
+      //   }
+      //   fn2();
+      // fn(10, 20, 30);
+      // function fn(n1, n2, n3) {
+      //   当函数的实参的个数和形参的个数不等时 下面的代码不执行
+      // if (arguments.length != fn.length) {
+      //   return;
+      // }
+      //   if (n1 && n2 && n3) {
+      //     console.log(n1 + n2 + n3);
+      //   }
+      // }
+
+      // 封装gettype
+      // 需求 让fn函数访问的tostring 方法来源于 Object.prototype 的toString方法
+      // fn();
+      // function fn() {}
+      // console.log(Object.prototype.toString.call(fn)); //[object ==> 数据类型 Function ==> 构造函数]
+
+      function getType(obj) {
+        return Object.prototype.toString.call(obj).slice(8, -1);
+      }
+      console.log(getType({}));
+    </script>
+  </body>
+</html>
