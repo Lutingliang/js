@@ -17,9 +17,9 @@
       //   fn();
 
       //   2. 方法调用模式 this ==> 调用方法的对象
-      let f = function () {
-        console.log(this);
-      };
+      // let f = function () {
+      //   console.log(this);
+      // };
       //   let obj = {
       //     abc: "abc",
       //     fn: f,
@@ -133,6 +133,12 @@
       // }
       // youqin(1, 2, 3);
 
+      clg(1, 1);
+      function clg() {
+        // console.log(arguments);
+        console.log.apply(arguments, arguments); // 相当于打印了arguments的每一项
+      }
+
       // bind方法
       //  语法: bind方法会创建并返回一个新的函数 新函数内的this指向被固定成了bind的参数thisArg
       //  bind方法返回的函数和fn 是一模一样的
@@ -154,7 +160,13 @@
       //  2.1 新函数的和fn 长的一样
       // 2.2 新函数的this指向被固定了(无论函数是何种调用模式 this都是不变的 固定指向了bind的thisArg参数)
 
-      // 用法 : 是解决 let that = this的方法之一
+      // 用法 : 1 .是解决 let that = this的方法之一
+      //        2.定时器默认是window调用的
+      // var fn = function () {
+      //   console.log("亲爱的， " + this.lover + ",,, " + this.name + "很想你");
+      // }.bind(this);
+      // setInterval(fn, 1000);
+      // console.log(Object.prototype);
     </script>
   </body>
 </html>
