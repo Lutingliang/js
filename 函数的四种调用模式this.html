@@ -133,10 +133,14 @@
       // }
       // youqin(1, 2, 3);
 
-      clg(1, 1);
+      clg2(1, 1);
       function clg() {
         // console.log(arguments);
         console.log.apply(arguments, arguments); // 相当于打印了arguments的每一项
+      }
+      function clg2() {
+        Array.prototype.unshift.call(arguments, "友情提示");
+        console.log.apply(arguments, arguments);
       }
 
       // bind方法
