@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /**
+       1. 把函数当做构造函数
+       let Fn = function(){}
+       let f = new Fn()
+       
+       原型三角关系
+       1 . 构造函数 Fn
+       2 . 实例对象 f
+       3 . 原型对象 Fn.prototype
+
+       2. 把fn当做是实例对象
+       Fn = new Function() 内部做的事情
+
+       原型三角关系
+       1 . 构造函数 Function
+       2 . 实例对象 Fn
+       3 . 原型对象 Function.prototype
+
+       3. 把Object构造函数给考虑进来
+       obj = new Object()
+
+       原型三角关系
+       1 . 构造函数 Object
+       2 . 实例对象 obj
+       3 . 原型对象 Object.prototype
+
+
+       4. 把Object 当做实例对象 任何函数都是Function的实例对象
+       Object = new Function()
+
+        原型三角关系
+       1 . 构造函数 Function()
+       2 . 实例对象 Object
+       3 . 原型对象 Function.prototype
+       
+       5. 把Function 当做实例对象 任何函数都是Function的实例对象
+       Function = new Function()
+
+        原型三角关系
+       1 . 构造函数 Function
+       2 . 实例对象 Function
+       3 . 原型对象 Function.prototype
+       */
+    </script>
+  </body>
+</html>
